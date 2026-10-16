@@ -2,7 +2,7 @@
 
 Sito di una pagina per il raduno di **sabato 25 settembre 2027** al Parco del Castello di Moniga del Garda, con l'obiettivo di riunire 1.001 bulldog francesi.
 
-Statico: HTML, CSS e JavaScript senza build. Si pubblica copiando la cartella su qualsiasi hosting (GitHub Pages, Netlify, Vercel, un normale spazio web).
+Statico: HTML, CSS e JavaScript. `npm run build` copia i file del sito in `dist/`, la cartella che Cloudflare Pages (build command `npm run build`, output `dist`) pubblica; va bene anche copiare la cartella a mano su qualsiasi hosting.
 
 ## Struttura
 

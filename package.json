@@ -1,9 +1,9 @@
 {
   "name": "bulldogfestival",
   "private": true,
-  "description": "Sito statico del 3° Raduno Nazionale Gold Lake Garda Bulldog Francese. Nessun build: le pagine si servono così come sono.",
+  "description": "Sito statico del 3° Raduno Nazionale Gold Lake Garda Bulldog Francese. Il build copia soltanto i file in dist/.",
   "scripts": {
-    "build": "echo \"Sito statico: nessun build necessario, la cartella del repo è già pronta da pubblicare.\"",
+    "build": "node scripts/build.mjs",
     "dev": "python -m http.server 5198 --directory ."
   }
 }
