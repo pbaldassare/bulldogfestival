@@ -11,34 +11,7 @@
   /* ---------- Anteprima ---------- */
   if (CFG.preview) $$('[data-preview-only]').forEach(el => { el.hidden = false; });
 
-  /* ---------- Prato delle zampe + contatori ---------- */
-  const pawsEl = $('#paws');
-  let filled = 0;
-
-  function buildPaws() {
-    const frag = document.createDocumentFragment();
-    for (let i = 0; i < CFG.goal; i++) {
-      const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      s.setAttribute('class', 'paw');
-      const u = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-      u.setAttribute('href', '#paw');
-      s.appendChild(u);
-      frag.appendChild(s);
-    }
-    pawsEl.appendChild(frag);
-  }
-
-  function lightPaws(count, cls) {
-    const paws = pawsEl.children;
-    const n = Math.min(count, paws.length);
-    for (let i = 0; i < n; i++) {
-      const p = paws[i];
-      if (reduceMotion) { p.classList.add(cls || 'is-on'); continue; }
-      // onda che parte dall'inizio del prato, pochi ms per zampa
-      setTimeout(() => p.classList.add(cls || 'is-on'), Math.min(i * 6, 2400));
-    }
-  }
-
+  /* ---------- Contatori ---------- */
   function countUp(el, to) {
     if (reduceMotion || to === 0) { el.textContent = fmt(to); return; }
     const dur = 1400, t0 = performance.now();
@@ -52,12 +25,10 @@
 
   async function renderCounts() {
     const c = await API.getCounts();
-    filled = Math.min(c.bulldog || 0, CFG.goal);
-    const pct = Math.round((filled / CFG.goal) * 100);
+    const pct = Math.round((Math.min(c.bulldog || 0, CFG.goal) / CFG.goal) * 100);
     $('.counter--main').style.setProperty('--pct', pct);
     const start = () => {
       $$('[data-count]').forEach(el => countUp(el, c[el.dataset.count] || 0));
-      lightPaws(filled);
     };
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((es) => {
@@ -67,7 +38,6 @@
     } else start();
   }
 
-  buildPaws();
   renderCounts();
 
   /* ---------- Salva la data (.ics) ---------- */
@@ -291,9 +261,7 @@
     panel.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     setTimeout(() => panel.focus({ preventScroll: true }), 400);
 
-    // le zampe dei suoi bulldog si accendono sul prato (solo visivo, in rosso)
-    const paws = pawsEl.children;
-    for (let i = 0; i < p.n_bulldog && filled + i < paws.length; i++) paws[filled + i].classList.add('is-mine');
+    // il contatore dei bulldog sale dei suoi (solo visivo, in questa pagina)
     const el = $('[data-count="bulldog"]');
     const cur = parseInt(el.textContent.replace(/\D/g, ''), 10) || 0;
     el.textContent = fmt(cur + p.n_bulldog);

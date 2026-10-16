@@ -12,7 +12,7 @@ privacy.html      bozza dell'informativa privacy (i punti gialli vanno completat
 css/style.css     stile
 js/config.js      ← l'unico file da toccare per contatori, limiti e dati evento
 js/api.js         strato dati del modulo (oggi: anteprima, salva solo nel browser)
-js/main.js        comportamento: prato delle zampe, contatori, modulo, .ics, condivisione
+js/main.js        comportamento: contatori, modulo, .ics, condivisione
 assets/           locandina originale, ritagli usati nel sito, font self-hosted
 PRODUCT.md        verità di prodotto (brief del committente, vincoli, testi confermati)
 DESIGN.md         sistema visivo registrato dopo la costruzione

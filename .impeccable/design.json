@@ -31,9 +31,8 @@
       { "name": "barra-scrollata", "value": "0 8px 24px -10px rgba(0,0,0,.6)", "purpose": "Barra sticky dopo 12px di scroll." }
     ],
     "motion": [
-      { "name": "ease-out", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "Ogni transizione di stato (hover, fill delle zampe, ingresso dei campi)." },
-      { "name": "onda-zampe", "value": "6ms per zampa, tetto 2400ms, fill .5s", "purpose": "Il prato si accende da sinistra quando entra in vista." },
-      { "name": "conteggio", "value": "1400ms, ease-out cubico", "purpose": "I contatori salgono al valore reale." },
+      { "name": "ease-out", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "Ogni transizione di stato (hover, ingresso dei campi)." },
+           { "name": "conteggio", "value": "1400ms, ease-out cubico", "purpose": "I contatori salgono al valore reale." },
       { "name": "campo-nuovo", "value": "dog-in .45s (opacity + translateY 8px)", "purpose": "Nuovo campo nome bulldog e campo telefono WhatsApp." }
     ],
     "breakpoints": [
@@ -103,7 +102,7 @@
       "name": "Zampa",
       "kind": "custom",
       "refersTo": "paw",
-      "description": "Il simbolo riusato nel prato dei 1.001, nei campi dei bulldog e nel successo.",
+      "description": "Il simbolo riusato nei campi dei bulldog e nel successo.",
       "html": "<svg class=\"ds-paw\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><ellipse cx=\"12\" cy=\"15.5\" rx=\"5.2\" ry=\"4.4\"/><ellipse cx=\"5.2\" cy=\"11\" rx=\"2.1\" ry=\"2.8\" transform=\"rotate(-18 5.2 11)\"/><ellipse cx=\"18.8\" cy=\"11\" rx=\"2.1\" ry=\"2.8\" transform=\"rotate(18 18.8 11)\"/><ellipse cx=\"9\" cy=\"6\" rx=\"2.1\" ry=\"2.9\"/><ellipse cx=\"15\" cy=\"6\" rx=\"2.1\" ry=\"2.9\"/></svg><svg class=\"ds-paw ds-paw-off\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><use href=\"#ds-paw-shape\"/><ellipse cx=\"12\" cy=\"15.5\" rx=\"5.2\" ry=\"4.4\"/><ellipse cx=\"5.2\" cy=\"11\" rx=\"2.1\" ry=\"2.8\" transform=\"rotate(-18 5.2 11)\"/><ellipse cx=\"18.8\" cy=\"11\" rx=\"2.1\" ry=\"2.8\" transform=\"rotate(18 18.8 11)\"/><ellipse cx=\"9\" cy=\"6\" rx=\"2.1\" ry=\"2.9\"/><ellipse cx=\"15\" cy=\"6\" rx=\"2.1\" ry=\"2.9\"/></svg>",
       "css": ".ds-paw { width:26px; height:26px; fill:#d4a72c; margin-right:6px; background:#0e1e4a; padding:3px; border-radius:4px; } .ds-paw-off { fill:#27397a; }"
     }
@@ -137,7 +136,7 @@
     ],
     "donts": [
       "Don't mettere contenuti in card bianche ombreggiate, né contatori in scatole: niente \"hero-metric\" con numero grande in un riquadro.",
-      "Don't usare il rosso per sezioni o pulsanti: solo date, errori, obbligatori e zampe appena iscritte.",
+      "Don't usare il rosso per sezioni o pulsanti: solo date, errori e obbligatori.",
       "Don't mettere etichette piccole e spaziate sopra un titolo (occhielli): la didascalia va sotto il valore.",
       "Don't usare gradiente sul testo fuori dal lockup d'oro dell'hero.",
       "Don't usare emoji o glifi Unicode come icone, né font di sistema per i titoli.",

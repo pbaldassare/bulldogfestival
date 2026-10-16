@@ -145,10 +145,10 @@ Una tavolozza da manifesto: pochi colori saturi, ciascuno con un compito preciso
 
 ### Primary
 - **Blu Notte** (`{colors.notte}`): fondo delle sezioni forti (obiettivo, testata iscrizione, barra in alto), colore del testo su fondi chiari, pulsante secondario pieno. Variante **Notte Profondo** per il footer, **Notte Morbido** per gli hover, **Notte Linea** per filetti e riga di avanzamento su blu.
-- **Oro** (`{colors.oro}`): pulsante principale (gradiente chiaro→oro→scuro), zampe accese nel prato, filetto di sezione da 6 px, icone (Oro Scuro). **Oro Chiaro** è il colore dei titoli su blu e delle cifre principali; **Oro Inchiostro** è l'ombra che dà rilievo alle lettere dorate.
+- **Oro** (`{colors.oro}`): pulsante principale (gradiente chiaro→oro→scuro), filetto di sezione da 6 px, icone (Oro Scuro). **Oro Chiaro** è il colore dei titoli su blu e delle cifre principali; **Oro Inchiostro** è l'ombra che dà rilievo alle lettere dorate.
 
 ### Secondary
-- **Rosso Italia** (`{colors.rosso-italia}`): la banda della data, la sottolineatura a pennello delle frasi a mano, il cuore, l'asterisco dei campi obbligatori, le zampe "mie" dopo l'iscrizione. **Rosso Scuro** per i messaggi d'errore.
+- **Rosso Italia** (`{colors.rosso-italia}`): la banda della data, la sottolineatura a pennello delle frasi a mano, il cuore, l'asterisco dei campi obbligatori, . **Rosso Scuro** per i messaggi d'errore.
 - **Verde Tricolore** (`{colors.verde-tricolore}`): solo nel filetto tricolore e nel pulsante WhatsApp (variante `{colors.whatsapp}`).
 
 ### Neutral
@@ -158,7 +158,7 @@ Una tavolozza da manifesto: pochi colori saturi, ciascuno con un compito preciso
 - **Su Notte** (bianco caldo) e **Su Notte 2** (azzurro chiaro) per testo primario e secondario sul blu: mai grigio su blu.
 
 ### Named Rules
-**The Red Is a Date Rule.** Il rosso pieno appare su una superficie solo quando porta una data o un'urgenza (banda della data, errori, asterisco, zampe appena iscritte). Mai come colore di sezione o di pulsante.
+**The Red Is a Date Rule.** Il rosso pieno appare su una superficie solo quando porta una data o un'urgenza (banda della data, errori, asterisco). Mai come colore di sezione o di pulsante.
 **The Gold Speaks Rule.** L'oro non riempie regioni: è lettera, filetto, zampa, pulsante. La regione la riempie il blu notte.
 **The Tinted Secondary Rule.** Il testo secondario prende il colore della superficie: Su Notte 2 sul blu, Inchiostro 2/3 sul chiaro. Niente grigi neutri.
 
@@ -190,7 +190,6 @@ Una sola colonna centrata: contenitore da 980 px per le sezioni di racconto, 760
 
 Ritmo verticale: `clamp(40px, 7vw, 80px)` sopra e sotto ogni sezione; 26–30 px tra gruppi; 12–16 px tra campi; più spazio sopra un titolo che sotto. Breakpoint: 640 px (righe del modulo a due colonne, contatori in linea), 820 px (programma a due colonne, luogo immagine+testo, footer a tre colonne), 1100 px (il medaglione del bulldog diventa un cammeo ad arco da 230 px a destra del titolo, che emerge dalla fascia dei cani). La barra in alto è `position: sticky` (ancoraggi con `scroll-margin-top: 84px`).
 
-Il prato delle 1.001 zampe è un flex-wrap centrato: zampe da 9 px sotto i 640 px, 13 px fino a 1100 px, 16 px oltre, gap 3 px; la sua altezza è il contenuto, mai un'altezza fissa.
 
 ## Elevation & Depth
 
@@ -209,7 +208,7 @@ Depth viene dalla materia, non dalle card: lettere con ombra portata, pennellate
 
 ## Shapes
 
-Pillole per i pulsanti (999 px), campi con angoli da 8 px e bordo 2 px (`#b9c5e2`, blu notte al focus), scelte e riquadri di aiuto a 10 px. Le pennellate sono forme organiche generate con `feTurbulence` + `feDisplacementMap` (scale 18–20). Il ritratto del bulldog nell'hero è un medaglione rotondo con anello Oro Chiaro da 4 px (84 px sul telefono, 120 px sul tablet) poggiato sul bordo alto della fascia dei cani; dai 1100 px diventa un cammeo ad arco (raggio 115 px in alto, 8 px in basso, anello 5 px). Il filetto tricolore è una barra 120×6 px con tre campi netti. Le icone sono SVG a tratto unico, 32 px, stroke 1.8, terminazioni e giunzioni arrotondate; il simbolo zampa è un `<symbol>` riusato ovunque (prato, campi dei bulldog, successo).
+Pillole per i pulsanti (999 px), campi con angoli da 8 px e bordo 2 px (`#b9c5e2`, blu notte al focus), scelte e riquadri di aiuto a 10 px. Le pennellate sono forme organiche generate con `feTurbulence` + `feDisplacementMap` (scale 18–20). Il ritratto del bulldog nell'hero è un medaglione rotondo con anello Oro Chiaro da 4 px (84 px sul telefono, 120 px sul tablet) poggiato sul bordo alto della fascia dei cani; dai 1100 px diventa un cammeo ad arco (raggio 115 px in alto, 8 px in basso, anello 5 px). Il filetto tricolore è una barra 120×6 px con tre campi netti. Le icone sono SVG a tratto unico, 32 px, stroke 1.8, terminazioni e giunzioni arrotondate; il simbolo zampa è un `<symbol>` riusato (campi dei bulldog, successo).
 
 ## Components
 
@@ -239,9 +238,6 @@ Pillole per i pulsanti (999 px), campi con angoli da 8 px e bordo 2 px (`#b9c5e2
 ### Gold Goal Block (signature)
 - Pennellata d'oro (gradiente orizzontale) ruotata +1.2° con "OBIETTIVO" spaziato e il numero 1.001 in blu profondo; sotto, il nome della cosa in condensato bianco.
 
-### Paw Field (signature)
-- 1.001 `<svg><use href="#paw"/></svg>` in flex-wrap su fondo `rgba(9,21,56,.55)` con bordo Notte Linea; zampa spenta `#27397a`, accesa Oro, "mia" Rosso Italia in scala 1.35. Si accende a onda (6 ms per zampa, tetto 2,4 s) quando entra in vista; i contatori sopra contano in 1,4 s con ease-out cubico. Con `prefers-reduced-motion` tutto appare già acceso.
-
 ### Counters
 - Cifre nude in Barlow Condensed 800 con la didascalia Label **sotto**; il contatore principale in Oro Chiaro con "/ 1.001" a .42em e una riga d'avanzamento di 4 px (oro per la percentuale, Notte Linea il resto).
 
@@ -257,7 +253,7 @@ Pillole per i pulsanti (999 px), campi con angoli da 8 px e bordo 2 px (`#b9c5e2
 
 ### Don't:
 - **Don't** mettere contenuti in card bianche ombreggiate, né contatori in scatole: niente "hero-metric" con numero grande in un riquadro.
-- **Don't** usare il rosso per sezioni o pulsanti: solo date, errori, obbligatori e zampe appena iscritte.
+- **Don't** usare il rosso per sezioni o pulsanti: solo date, errori e obbligatori.
 - **Don't** mettere etichette piccole e spaziate sopra un titolo (occhielli): la didascalia va sotto il valore.
 - **Don't** usare gradiente sul testo fuori dal lockup d'oro dell'hero.
 - **Don't** usare emoji o glifi Unicode come icone, né font di sistema per i titoli.

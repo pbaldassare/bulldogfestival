@@ -271,18 +271,6 @@ section, .success { scroll-margin-top: 84px; } /* la barra in alto è fissa: gli
 .counter__value.is-bumped { animation: bump .6s var(--ease-out); }
 @keyframes bump { 30% { transform: scale(1.12); } }
 
-.paws {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 3px;
-  margin: 26px auto 0; max-width: 900px;
-  padding: 16px 12px; border-radius: var(--radius);
-  background: rgba(9, 21, 56, .55); border: 1px solid var(--navy-line);
-}
-.paw { width: 9px; height: 9px; fill: #27397a; transition: fill .5s var(--ease-out), transform .5s var(--ease-out); }
-.paw.is-on { fill: var(--gold); }
-.paw.is-mine { fill: var(--red); transform: scale(1.35); }
-.paws__legend { margin-top: 10px; font: 600 .82rem/1.2 var(--cond); letter-spacing: .14em; text-transform: uppercase; color: var(--on-navy-2); display: flex; justify-content: center; gap: 8px; align-items: center; flex-wrap: wrap; }
-.paws__dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #27397a; margin-left: 10px; }
-.paws__dot--on { background: var(--gold); margin-left: 0; }
 
 .goal__hand { position: relative; display: inline-block; margin-top: 30px; font-size: clamp(2rem, 6.5vw, 3.4rem); padding-bottom: 8px; }
 .goal__hand::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: 0; height: 5px; border-radius: 3px; background: var(--red); transform: rotate(-1deg); }
@@ -445,7 +433,6 @@ section, .success { scroll-margin-top: 84px; } /* la barra in alto è fissa: gli
   .total { margin-top: 16px; }
   .counters { grid-template-columns: 1.6fr 1fr 1fr; }
   .counter--main { grid-column: auto; grid-row: 1 / span 1; }
-  .paw { width: 13px; height: 13px; }
   .hero__dog { width: 120px; right: 20px; bottom: calc(min(100vw, 1180px) * 0.2803 - 60px); }
 }
 @media (min-width: 820px) {
@@ -459,7 +446,6 @@ section, .success { scroll-margin-top: 84px; } /* la barra in alto è fissa: gli
   .topbar__name { font-size: 1.15rem; }
 }
 @media (min-width: 1100px) {
-  .paw { width: 16px; height: 16px; }
   /* sul desktop il bulldog diventa un cammeo ad arco che emerge dalla folla, a destra del titolo */
   .hero__dog {
     right: max(32px, calc(50% - 560px));
