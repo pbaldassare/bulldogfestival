@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3° Raduno Nazionale Gold Lake Garda — Bulldog Francese · 25 settembre 2027</title>
+  <meta name="description" content="Sabato 25 settembre 2027, Parco del Castello di Moniga del Garda: il 3° Raduno Nazionale Gold Lake Garda Bulldog Francese. Obiettivo 1.001 bulldog francesi. Iscrivi i tuoi bulldog.">
+  <meta name="theme-color" content="#0e1e4a">
+  <meta property="og:title" content="3° Raduno Nazionale Gold Lake Garda — Bulldog Francese">
+  <meta property="og:description" content="Sabato 25 settembre 2027 · Parco del Castello, Moniga del Garda. Obiettivo 1.001 bulldog francesi: iscrivi i tuoi.">
+  <!-- og:image: quando il dominio è noto, trasformare in URL assoluto -->
+  <meta property="og:image" content="assets/img/share.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/Cinzel-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/BarlowCondensed-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css?v=6">
+</head>
+<body>
+<!--
+THESIS: La pagina è la locandina che si riempie: un unico racconto verticale che porta dalla data al modulo, con l'obiettivo 1.001 mostrato come prato di zampe da occupare. Rifiuta la landing da evento con hero + tre card + modulo in un riquadro.
+OWN-WORLD: blu notte e oro metallico come base, rosso italiano solo per la data e gli accenti d'urgenza, cielo chiaro per le sezioni di lettura; pennellate strappate dietro i blocchi forti; tricolore come filetto di firma; Cinzel 900 oro per i titoli, Barlow Condensed 800 maiuscolo per date e numeri, Caveat Brush per le frasi dette a voce, Barlow per il testo; icone a tratto unico dorate.
+STORY: capisco in tre secondi cos'è, quando e dove; vedo che il sogno dei 1.001 è una cosa a cui partecipo; iscrivo i miei bulldog in un minuto dal telefono e mi sento già in famiglia.
+FIRST VIEWPORT: barra blu con logo e "Iscriviti"; corona, titolo oro su cielo, luogo, banda rossa inclinata con la data, due azioni (oro: iscrivi; secondaria: salva la data); fascia di bulldog che entra nel blu dei contatori.
+FORM: mondo fissato dalla locandina del committente (brief-pinned); nessun lancio di concept-seed, code-led, nessun comp.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
+<a class="skip" href="#iscrizione">Vai al modulo di iscrizione</a>
+
+<header class="topbar">
+  <a class="topbar__brand" href="#top" aria-label="Gold Lake Garda Bulldog Francese, torna all'inizio">
+    <img src="assets/img/logo.jpg" alt="" width="228" height="177">
+    <span class="topbar__name">Gold Lake Garda <small>Bulldog Francese</small></span>
+  </a>
+  <a class="btn btn--gold btn--sm" href="#iscrizione">Iscriviti</a>
+</header>
+
+<main id="top">
+
+  <!-- ====================== HERO ====================== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__inner">
+      <svg class="hero__crown" viewBox="0 0 120 64" aria-hidden="true">
+        <path d="M8 50 L4 16 L30 32 L60 6 L90 32 L116 16 L112 50 Z" fill="url(#gold-v)" stroke="#8a6512" stroke-width="2" stroke-linejoin="round"/>
+        <rect x="8" y="50" width="104" height="9" rx="2" fill="url(#gold-v)" stroke="#8a6512" stroke-width="2"/>
+        <circle cx="4" cy="16" r="4" fill="#f3d97c"/><circle cx="60" cy="6" r="4.5" fill="#f3d97c"/><circle cx="116" cy="16" r="4" fill="#f3d97c"/>
+        <circle cx="35" cy="47" r="3" fill="#ce1b2b"/><circle cx="60" cy="46" r="3.5" fill="#0e1e4a"/><circle cx="85" cy="47" r="3" fill="#ce1b2b"/>
+        <defs><linearGradient id="gold-v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3d97c"/><stop offset=".55" stop-color="#d4a72c"/><stop offset="1" stop-color="#9c7314"/></linearGradient></defs>
+      </svg>
+
+      <h1 id="hero-title" class="hero__title">
+        <span class="hero__edition"><span class="hero__num">3°</span> Raduno Nazionale</span>
+        <span class="hero__name">Gold Lake Garda</span>
+        <span class="hero__breed">Bulldog Francese</span>
+      </h1>
+
+      <span class="tricolore" aria-hidden="true"></span>
+
+      <p class="hero__place">
+        <strong>Parco del Castello · Moniga del Garda</strong>
+        <span>Lago di Garda</span>
+      </p>
+
+      <div class="date-band" role="group" aria-label="Data dell'evento">
+        <svg class="brush brush--red" viewBox="0 0 640 150" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <filter id="rough-red" x="-5%" y="-20%" width="110%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="7" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="18" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <g filter="url(#rough-red)">
+            <path d="M14 38 C120 18 520 14 626 30 L634 112 C520 134 110 138 10 118 Z" fill="#ce1b2b"/>
+            <path d="M30 26 C200 20 420 18 610 24 L612 40 C420 36 200 38 32 44 Z" fill="#e23b48" opacity=".55"/>
+          </g>
+        </svg>
+        <svg class="date-band__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M7 14h2M11 14h2M15 14h2M7 17h2M11 17h2"/></svg>
+        <span class="date-band__day">Sabato</span>
+        <time class="date-band__date" datetime="2027-09-25">25 settembre 2027</time>
+      </div>
+
+      <div class="hero__actions">
+        <a class="btn btn--gold btn--lg" href="#iscrizione">Iscrivi i tuoi bulldog</a>
+        <button class="btn btn--ghost btn--lg" type="button" data-action="save-date">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>
+          Salva la data
+        </button>
+      </div>
+    </div>
+
+    <figure class="hero__dog" aria-hidden="true">
+      <img src="assets/img/dog-hero.jpg" alt="" width="224" height="470">
+    </figure>
+
+    <figure class="hero__band">
+      <img src="assets/img/dogs-group.jpg" alt="Una folla di bulldog francesi sorridenti sul prato, con il castello e il lago alle spalle" width="1024" height="287" fetchpriority="high">
+    </figure>
+  </section>
+
+  <!-- ====================== OBIETTIVO 1.001 ====================== -->
+  <section class="goal" id="obiettivo" aria-labelledby="goal-title">
+    <div class="goal__inner">
+      <h2 id="goal-title" class="goal__title">
+        <span class="goal__number-wrap">
+          <svg class="brush brush--gold" viewBox="0 0 640 170" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <filter id="rough-gold" x="-5%" y="-20%" width="110%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.014 0.08" numOctaves="3" seed="3" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="20" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+              <linearGradient id="gold-h" x1="0" x2="1"><stop offset="0" stop-color="#b98a1e"/><stop offset=".5" stop-color="#e8c65a"/><stop offset="1" stop-color="#a87b16"/></linearGradient>
+            </defs>
+            <g filter="url(#rough-gold)">
+              <path d="M12 30 C150 10 500 8 630 24 L634 138 C500 156 150 160 8 140 Z" fill="url(#gold-h)"/>
+            </g>
+          </svg>
+          <span class="goal__label">Obiettivo</span>
+          <span class="goal__number">1.001</span>
+        </span>
+        <span class="goal__what">bulldog francesi insieme</span>
+      </h2>
+
+      <p class="goal__lead">Il nostro grande sogno è riunire nello stesso prato, nello stesso giorno, <strong>1.001 bulldog francesi</strong> e puntare al record. Ogni bulldog iscritto è una zampa in più sul prato.</p>
+
+      <dl class="counters">
+        <div class="counter counter--main">
+          <dd><span class="counter__value" data-count="bulldog">0</span><span class="counter__of">/ 1.001</span></dd>
+          <dt>bulldog francesi iscritti</dt>
+        </div>
+        <div class="counter">
+          <dd><span class="counter__value" data-count="iscrizioni">0</span></dd>
+          <dt>iscrizioni</dt>
+        </div>
+        <div class="counter">
+          <dd><span class="counter__value" data-count="persone">0</span></dd>
+          <dt>persone in arrivo</dt>
+        </div>
+      </dl>
+
+      <div class="paws" id="paws" role="img" aria-label="Prato di 1.001 zampe: si colorano d'oro man mano che i bulldog vengono iscritti"></div>
+      <p class="paws__legend"><span class="paws__dot paws__dot--on"></span> bulldog iscritti <span class="paws__dot"></span> posti ancora liberi</p>
+
+      <p class="hand hand--gold goal__hand">Insieme possiamo scrivere la storia!
+        <svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.2-4.6-9.1-9.3C1.6 8 3.4 4.8 6.6 4.5c1.9-.2 3.6.8 4.6 2.3h1.6c1-1.5 2.7-2.5 4.6-2.3 3.2.3 5 3.5 3.7 6.7-1.9 4.7-9.1 9.3-9.1 9.3z"/></svg>
+      </p>
+      <p class="goal__note">Il conteggio valido per il record sarà quello dei bulldog effettivamente presenti il 25 settembre 2027, secondo le regole che verranno stabilite.</p>
+    </div>
+  </section>
+
+  <!-- ====================== COSA TROVERAI ====================== -->
+  <section class="program" id="programma" aria-labelledby="program-title">
+    <div class="program__inner">
+      <h2 id="program-title" class="section-title">Cosa troverai al Parco del Castello</h2>
+      <p class="section-lead">Una giornata intera per i bulldog francesi e per chi li ama, con il castello e il lago intorno.</p>
+
+      <ul class="program__list">
+        <li>
+          <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><circle cx="11" cy="11" r="4.5"/><circle cx="22" cy="12" r="3.5"/><path d="M3 26c0-5 3.6-8 8-8s8 3 8 8"/><path d="M19.5 19.2c.8-.2 1.6-.3 2.5-.3 4 0 7 2.6 7 7"/></svg>
+          <div><h3>Incontri e condivisione</h3><p>Lo spazio per ritrovarsi dal vivo con tutta la famiglia Gold Lake Garda.</p></div>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 12 16 6l13 6-13 6z"/><path d="M8 14.5V21c0 2 3.6 4 8 4s8-2 8-4v-6.5"/><path d="M29 12v8"/></svg>
+          <div><h3>Consigli e informazione</h3><p>Per chi vuole saperne di più sulla vita con un bulldog francese.</p></div>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 27S5.5 20.6 3.3 14.3C1.8 9.8 4.5 5.6 8.6 5.2c2.9-.3 5.6 1.4 7.4 3.8 1.8-2.4 4.5-4.1 7.4-3.8 4.1.4 6.8 4.6 5.3 9.1C26.5 20.6 16 27 16 27z"/><path d="M8 15h4l2-3 3 6 2-4h5"/></svg>
+          <div><h3>Salute e benessere animale</h3><p>Uno spazio dedicato alla salute e al benessere dei nostri bulldog.</p></div>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 12l2-6h20l2 6"/><path d="M4 12c0 2.2 1.8 4 4 4s4-1.8 4-4c0 2.2 1.8 4 4 4s4-1.8 4-4c0 2.2 1.8 4 4 4s4-1.8 4-4"/><path d="M6 16v10h20V16"/><path d="M13 26v-6h6v6"/></svg>
+          <div><h3>Espositori e area shop</h3><p>Prodotti e novità per i bulldog francesi da scoprire sul posto.</p></div>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="9" width="26" height="18" rx="3"/><path d="M11 9l2-4h6l2 4"/><circle cx="16" cy="18" r="5"/><circle cx="24.5" cy="13.5" r="1" fill="currentColor"/></svg>
+          <div><h3>Foto e video</h3><p>Per portare a casa il ricordo di una giornata da record.</p></div>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4L16 15.4 11.2 17.9l.9-5.4-3.9-3.8 5.4-.8z"/><path d="M3 29v-7h8v7M12 29V18h8v11M21 29v-5h8v5"/></svg>
+          <div><h3>Intrattenimento e tante sorprese</h3><p>Momenti che annunceremo strada facendo.</p></div>
+        </li>
+      </ul>
+
+      <p class="program__soon">Programma e orari arrivano nei prossimi mesi. <strong>Chi è iscritto li riceve per primo.</strong></p>
+    </div>
+  </section>
+
+  <!-- ====================== IL LUOGO ====================== -->
+  <section class="place" id="luogo" aria-labelledby="place-title">
+    <div class="place__inner">
+      <figure class="place__figure">
+        <img src="assets/img/castle.jpg" alt="Il castello di Moniga del Garda tra palme e cipressi, con le prime orecchie di bulldog in primo piano" width="250" height="278" loading="lazy">
+      </figure>
+      <div class="place__text">
+        <h2 id="place-title" class="section-title">Il luogo</h2>
+        <p class="place__name">Parco del Castello<br><span>Moniga del Garda (BS) · Lago di Garda</span></p>
+        <p>Un prato ai piedi delle mura del castello, a due passi dal lago: lo spazio giusto per riunire mille bulldog e le loro famiglie.</p>
+        <p class="place__soon">Indicazioni per l'accesso, parcheggi e orari saranno comunicati con il programma.</p>
+        <a class="btn btn--navy" href="https://www.google.com/maps/search/?api=1&query=Parco+del+Castello%2C+Moniga+del+Garda" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.3-7-12a7 7 0 0 1 14 0c0 5.7-7 12-7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Apri in Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== ISCRIZIONE ====================== -->
+  <section class="register" id="iscrizione" aria-labelledby="register-title">
+    <div class="register__inner">
+      <header class="register__head">
+        <h2 id="register-title" class="section-title section-title--light">Iscrivi i tuoi bulldog</h2>
+        <p class="section-lead section-lead--light">L'iscrizione è gratuita e vale per tutto il tuo gruppo: tu, chi viene con te e i vostri bulldog francesi. Un minuto dal telefono.</p>
+      </header>
+
+      <div class="notice notice--preview" data-preview-only hidden>
+        <strong>Anteprima.</strong> Il modulo è completo ma non salva ancora le iscrizioni: lo collegheremo al sistema di archivio e conferme prima di pubblicarlo.
+      </div>
+
+      <form class="form" id="form-iscrizione" novalidate>
+        <div class="form__errors" id="form-errors" role="alert" aria-live="assertive" hidden></div>
+
+        <!-- 1. Referente -->
+        <fieldset class="form__group">
+          <legend>
+            <span class="form__step">Il referente dell'iscrizione</span>
+            <span class="form__hint">Chi compila il modulo. Non deve essere per forza il proprietario: può essere chi accompagnerà i bulldog all'evento.</span>
+          </legend>
+
+          <div class="field">
+            <label for="f-nome">Nome e cognome <abbr title="obbligatorio">*</abbr></label>
+            <input id="f-nome" name="referente" type="text" autocomplete="name" required minlength="3" placeholder="Mario Rossi">
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="f-citta">Città</label>
+              <input id="f-citta" name="citta" type="text" autocomplete="address-level2" placeholder="Brescia">
+            </div>
+            <div class="field field--sm">
+              <label for="f-prov">Provincia</label>
+              <input id="f-prov" name="provincia" type="text" maxlength="2" pattern="[A-Za-z]{2}" placeholder="BS" style="text-transform:uppercase">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-email">E-mail <abbr title="obbligatorio">*</abbr></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required inputmode="email" placeholder="nome@esempio.it">
+            <p class="field__help">Qui arriva la conferma dell'iscrizione con il tuo numero progressivo.</p>
+          </div>
+
+          <div class="field-row field-row--people">
+            <div class="field field--sm">
+              <label for="f-acc">Accompagnatori aggiuntivi</label>
+              <div class="stepper">
+                <button type="button" class="stepper__btn" data-step="-1" aria-label="Togli un accompagnatore">−</button>
+                <input id="f-acc" name="accompagnatori" type="number" inputmode="numeric" min="0" max="30" value="0" required>
+                <button type="button" class="stepper__btn" data-step="1" aria-label="Aggiungi un accompagnatore">+</button>
+              </div>
+              <p class="field__help">Persone oltre a te.</p>
+            </div>
+            <p class="total" aria-live="polite">
+              <span class="total__label">Totale persone</span>
+              <span class="total__value" id="tot-persone">1</span>
+              <span class="total__sub" id="tot-persone-sub">solo tu</span>
+            </p>
+          </div>
+        </fieldset>
+
+        <!-- 2. Bulldog -->
+        <fieldset class="form__group">
+          <legend>
+            <span class="form__step">I bulldog francesi che vengono con te</span>
+            <span class="form__hint">Conta ognuno di loro: è così che il prato dei 1.001 si riempie.</span>
+          </legend>
+
+          <div class="field field--sm">
+            <label for="f-nbull">Quanti bulldog francesi? <abbr title="obbligatorio">*</abbr></label>
+            <div class="stepper">
+              <button type="button" class="stepper__btn" data-step="-1" aria-label="Togli un bulldog">−</button>
+              <input id="f-nbull" name="n_bulldog" type="number" inputmode="numeric" min="1" max="30" value="1" required>
+              <button type="button" class="stepper__btn" data-step="1" aria-label="Aggiungi un bulldog">+</button>
+            </div>
+          </div>
+
+          <div class="dogs" id="dogs" aria-live="polite"></div>
+        </fieldset>
+
+        <!-- 3. WhatsApp -->
+        <fieldset class="form__group form__group--wa">
+          <legend>
+            <span class="form__step">Vuoi entrare nella nostra famiglia WhatsApp Gold Lake Garda Bulldog Francese?</span>
+          </legend>
+          <p class="wa__text">Il nostro gruppo WhatsApp è uno spazio dedicato a tutti gli amici e agli appassionati dei bulldog francesi. Un luogo dove possiamo conoscerci, confrontarci, condividere esperienze, fotografie, consigli e curiosità sui nostri amici a quattro zampe, creare nuove amicizie e sentirci parte di una grande famiglia. Attraverso il gruppo riceverai anche tutte le comunicazioni, le novità e gli aggiornamenti organizzativi del Raduno Nazionale del 25 settembre 2027.</p>
+          <p class="wa__optional">L'adesione è facoltativa e non serve per partecipare al raduno.</p>
+
+          <div class="choices" role="radiogroup" aria-label="Gruppo WhatsApp">
+            <label class="choice">
+              <input type="radio" name="whatsapp" value="si" required>
+              <span class="choice__box"></span>
+              <span class="choice__text"><strong>Sì</strong>, desidero essere inserito nel gruppo WhatsApp Gold Lake Garda Bulldog Francese.</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="whatsapp" value="no">
+              <span class="choice__box"></span>
+              <span class="choice__text"><strong>No</strong>, non desidero essere inserito nel gruppo WhatsApp.</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="whatsapp" value="gia">
+              <span class="choice__box"></span>
+              <span class="choice__text"><strong>Sono già inserito</strong> nel gruppo WhatsApp Gold Lake Garda Bulldog Francese.</span>
+            </label>
+          </div>
+
+          <div class="field wa__phone" id="wa-phone" hidden>
+            <label for="f-tel">Numero di cellulare WhatsApp <abbr title="obbligatorio">*</abbr></label>
+            <input id="f-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" placeholder="+39 333 1234567" disabled>
+            <p class="field__help">Lo useremo solo per invitarti nel gruppo. Una volta dentro, il numero sarà visibile agli altri partecipanti.</p>
+          </div>
+        </fieldset>
+
+        <!-- 4. Privacy -->
+        <div class="form__group form__group--privacy">
+          <label class="choice choice--check">
+            <input type="checkbox" name="privacy" value="1" required>
+            <span class="choice__box"></span>
+            <span class="choice__text">Ho letto l'<a href="privacy.html" target="_blank" rel="noopener">informativa sulla privacy</a> e acconsento al trattamento dei dati necessari a gestire l'iscrizione. <abbr title="obbligatorio">*</abbr></span>
+          </label>
+        </div>
+
+        <!-- honeypot -->
+        <div class="hp" aria-hidden="true"><label>Sito web<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+        <div class="form__submit">
+          <button class="btn btn--gold btn--lg" type="submit" id="submit-btn">
+            <span class="btn__label">Invia l'iscrizione</span>
+            <span class="btn__busy" aria-hidden="true"></span>
+          </button>
+          <p class="form__fine">Riceverai subito il tuo numero di iscrizione.</p>
+        </div>
+      </form>
+
+      <!-- Successo -->
+      <div class="success" id="success" hidden tabindex="-1" aria-labelledby="success-title">
+        <svg class="success__paw" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="42" rx="14" ry="12"/><ellipse cx="14" cy="30" rx="6" ry="8" transform="rotate(-15 14 30)"/><ellipse cx="50" cy="30" rx="6" ry="8" transform="rotate(15 50 30)"/><ellipse cx="24" cy="16" rx="6" ry="8"/><ellipse cx="40" cy="16" rx="6" ry="8"/></svg>
+        <h2 id="success-title" class="success__title">Iscrizione registrata con successo!</h2>
+        <p class="success__number" id="success-number">Iscrizione n. 0000</p>
+        <p class="success__thanks">Grazie per esserti unito alla grande famiglia Gold Lake Garda Bulldog Francese!</p>
+        <p>Ti aspettiamo <strong>sabato 25 settembre 2027</strong> presso il <strong>Parco del Castello di Moniga del Garda</strong>!</p>
+        <p id="success-mail"></p>
+        <p class="success__dogs" id="success-dogs"></p>
+        <p class="hand hand--red success__hand">Insieme possiamo realizzare un sogno straordinario: 1001 bulldog francesi!</p>
+        <div class="success__actions">
+          <button class="btn btn--navy" type="button" data-action="save-date">Salva la data in calendario</button>
+          <a class="btn btn--ghost-navy" href="#condividi">Invita altri bulldog</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CONDIVIDI ====================== -->
+  <section class="share" id="condividi" aria-labelledby="share-title">
+    <div class="share__inner">
+      <h2 id="share-title" class="share__title">Più siamo, più vicino è il record.</h2>
+      <p>Manda questa pagina a chi ha un bulldog francese: ogni iscrizione è una zampa in più verso i 1.001.</p>
+      <div class="share__actions">
+        <a class="btn btn--wa" id="share-wa" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M9 8.5c.2 2.5 3 5.4 5.5 5.6l1-1.3-1.8-.9-.8.8c-.9-.4-1.9-1.4-2.3-2.3l.8-.8-.9-1.8z" fill="currentColor" stroke="none"/></svg>
+          Condividi su WhatsApp
+        </a>
+        <button class="btn btn--ghost" type="button" id="copy-link">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+          <span>Copia il link</span>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <img src="assets/img/logo.jpg" alt="Logo Gold Lake Garda Bulldog Francese" width="228" height="177">
+    </div>
+    <div class="footer__center">
+      <p class="hand hand--gold footer__hand">Restate sintonizzati!</p>
+      <p>Nei prossimi mesi vi daremo tutte le informazioni su programma, iscrizioni e novità.</p>
+      <p class="footer__links"><a href="privacy.html">Informativa privacy</a> · <a href="#iscrizione">Iscrizione</a> · <a href="#obiettivo">Obiettivo 1.001</a></p>
+    </div>
+    <div class="footer__org">
+      <p class="footer__orglabel">Organizzazione</p>
+      <img src="assets/img/wellfit.jpg" alt="Wellfit Concept ASD — Change Your Life" width="217" height="133">
+    </div>
+  </div>
+  <p class="footer__copy">© 2026 Wellfit Concept ASD · 3° Raduno Nazionale Gold Lake Garda Bulldog Francese</p>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="paw" viewBox="0 0 24 24">
+    <ellipse cx="12" cy="15.5" rx="5.2" ry="4.4"/>
+    <ellipse cx="5.2" cy="11" rx="2.1" ry="2.8" transform="rotate(-18 5.2 11)"/>
+    <ellipse cx="18.8" cy="11" rx="2.1" ry="2.8" transform="rotate(18 18.8 11)"/>
+    <ellipse cx="9" cy="6" rx="2.1" ry="2.9"/>
+    <ellipse cx="15" cy="6" rx="2.1" ry="2.9"/>
+  </symbol>
+</svg>
+
+<script src="js/config.js?v=6"></script>
+<script src="js/api.js?v=6"></script>
+<script src="js/main.js?v=6"></script>
+</body>
+</html>

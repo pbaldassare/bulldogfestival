@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T09:00:00.000Z",
+  "title": "Design System: Gold Lake Garda — Bulldog Francese",
+  "extensions": {
+    "colorMeta": {
+      "notte": { "role": "primary", "displayName": "Blu Notte", "canonical": "#0e1e4a", "tonalRamp": ["#05091c", "#091538", "#0e1e4a", "#1a2d63", "#2a3f7d", "#5a6ea8", "#9aa8d2", "#dfe5f5"] },
+      "oro": { "role": "primary", "displayName": "Oro", "canonical": "#d4a72c", "tonalRamp": ["#3d2c05", "#7a5a0e", "#9c7314", "#b98a1e", "#d4a72c", "#e8c65a", "#f1d27a", "#faeec6"] },
+      "rosso-italia": { "role": "secondary", "displayName": "Rosso Italia", "canonical": "#ce1b2b", "tonalRamp": ["#3a0509", "#7a0d18", "#a3101f", "#ce1b2b", "#e23b48", "#ee7a83", "#f5b3b9", "#fdeaec"] },
+      "verde-tricolore": { "role": "secondary", "displayName": "Verde Tricolore", "canonical": "#0b8a43", "tonalRamp": ["#032613", "#064d26", "#0b8a43", "#1e9e55", "#3fb873", "#7fd3a2", "#bfe9d0", "#e9f8ef"] },
+      "cielo": { "role": "neutral", "displayName": "Cielo", "canonical": "#e3f1fb", "tonalRamp": ["#1c3348", "#35607f", "#5d8fb3", "#8fb9d6", "#b4d4ea", "#c9e3f5", "#e3f1fb", "#f4faff"] },
+      "carta": { "role": "neutral", "displayName": "Carta", "canonical": "#f7f9fc", "tonalRamp": ["#262a33", "#4a5160", "#7b8494", "#aeb6c4", "#d2d8e2", "#e8ecf3", "#f7f9fc", "#ffffff"] },
+      "inchiostro-2": { "role": "neutral", "displayName": "Inchiostro 2 (testo su chiaro)", "canonical": "#3d4b73", "tonalRamp": ["#0e1e4a", "#1a2d63", "#3d4b73", "#66739a", "#8e99bb", "#b8c3e6", "#dfe5f5", "#f4f6fb"] },
+      "su-notte": { "role": "neutral", "displayName": "Su Notte (bianco caldo)", "canonical": "#f6f1e4", "tonalRamp": ["#4a4330", "#7a7050", "#a89b74", "#c9bd98", "#e2d8bd", "#efe8d3", "#f6f1e4", "#fdfbf5"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display (Cinzel 900 oro)", "purpose": "Solo il lockup dell'hero: ordinale, nome, razza. Gradiente metallico + doppia ombra." },
+      "headline": { "displayName": "Headline (Cinzel 900)", "purpose": "Titoli di sezione: blu su chiaro, oro chiaro su blu." },
+      "numeral": { "displayName": "Numeral (Barlow Condensed 800)", "purpose": "1.001, data, contatori; tabular-nums." },
+      "title": { "displayName": "Title (Barlow Condensed 800 maiuscolo)", "purpose": "Voci del programma e gruppi del modulo." },
+      "body": { "displayName": "Body (Barlow 400)", "purpose": "Testo corrente, misura ≤68ch." },
+      "label": { "displayName": "Label (Barlow Condensed 600 spaziato)", "purpose": "Didascalie sotto i numeri, legenda. Mai sopra un titolo." },
+      "hand": { "displayName": "Hand (Caveat Brush)", "purpose": "Frasi dette a voce, con sottolineatura rossa a pennello." }
+    },
+    "shadows": [
+      { "name": "lettere-oro", "value": "drop-shadow(0 2px 0 #7a5a0e) drop-shadow(0 6px 10px rgba(14,30,74,.25))", "purpose": "Rilievo del lockup in oro." },
+      { "name": "pulsante-oro", "value": "0 6px 16px -6px rgba(156,115,20,.6), inset 0 1px 0 rgba(255,255,255,.55)", "purpose": "Pulsante primario a riposo." },
+      { "name": "pulsante-oro-hover", "value": "0 12px 24px -8px rgba(156,115,20,.7), inset 0 1px 0 rgba(255,255,255,.55)", "purpose": "Pulsante primario sollevato di 2px." },
+      { "name": "banda-rossa", "value": "drop-shadow(0 10px 18px rgba(206,27,43,.35))", "purpose": "La data galleggia sul cielo." },
+      { "name": "foto", "value": "0 14px 34px -12px rgba(14,30,74,.35)", "purpose": "Polaroid del castello." },
+      { "name": "barra-scrollata", "value": "0 8px 24px -10px rgba(0,0,0,.6)", "purpose": "Barra sticky dopo 12px di scroll." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "Ogni transizione di stato (hover, fill delle zampe, ingresso dei campi)." },
+      { "name": "onda-zampe", "value": "6ms per zampa, tetto 2400ms, fill .5s", "purpose": "Il prato si accende da sinistra quando entra in vista." },
+      { "name": "conteggio", "value": "1400ms, ease-out cubico", "purpose": "I contatori salgono al valore reale." },
+      { "name": "campo-nuovo", "value": "dog-in .45s (opacity + translateY 8px)", "purpose": "Nuovo campo nome bulldog e campo telefono WhatsApp." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "820px" },
+      { "name": "lg", "value": "1100px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Pulsante oro",
+      "kind": "button",
+      "refersTo": "button-gold",
+      "description": "L'unica azione dorata per sezione.",
+      "html": "<button class=\"ds-btn-gold\">Iscrivi i tuoi bulldog</button>",
+      "css": ".ds-btn-gold { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:56px; padding:14px 28px; font:600 1.125rem/1.1 Barlow, system-ui, sans-serif; color:#0e1e4a; background:linear-gradient(180deg,#f1d27a 0%,#d4a72c 55%,#9c7314 100%); border:2px solid #9c7314; border-radius:999px; box-shadow:0 6px 16px -6px rgba(156,115,20,.6), inset 0 1px 0 rgba(255,255,255,.55); text-shadow:0 1px 0 rgba(255,255,255,.35); cursor:pointer; transition:transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s cubic-bezier(.16,1,.3,1); } .ds-btn-gold:hover { transform:translateY(-2px); box-shadow:0 12px 24px -8px rgba(156,115,20,.7), inset 0 1px 0 rgba(255,255,255,.55); } .ds-btn-gold:focus-visible { outline:3px solid #d4a72c; outline-offset:3px; }"
+    },
+    {
+      "name": "Pulsante navy",
+      "kind": "button",
+      "refersTo": "button-navy",
+      "description": "Azione secondaria piena su fondo chiaro.",
+      "html": "<button class=\"ds-btn-navy\">Apri in Google Maps</button>",
+      "css": ".ds-btn-navy { display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:12px 22px; font:600 1.0625rem/1.1 Barlow, system-ui, sans-serif; color:#f6f1e4; background:#0e1e4a; border:2px solid #0e1e4a; border-radius:999px; cursor:pointer; transition:background-color .2s; } .ds-btn-navy:hover { background:#1a2d63; color:#fff; } .ds-btn-navy:focus-visible { outline:3px solid #d4a72c; outline-offset:3px; }"
+    },
+    {
+      "name": "Pulsante ghost",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Azione secondaria leggera sul cielo.",
+      "html": "<button class=\"ds-btn-ghost\">Salva la data</button>",
+      "css": ".ds-btn-ghost { display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:12px 22px; font:600 1.0625rem/1.1 Barlow, system-ui, sans-serif; color:#0e1e4a; background:rgba(255,255,255,.55); border:2px solid #0e1e4a; border-radius:999px; cursor:pointer; transition:background-color .2s; } .ds-btn-ghost:hover { background:#fff; } .ds-btn-ghost:focus-visible { outline:3px solid #d4a72c; outline-offset:3px; }"
+    },
+    {
+      "name": "Campo di testo",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo del modulo con etichetta sopra e aiuto sotto.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-email\">E-mail <abbr title=\"obbligatorio\">*</abbr></label><input id=\"ds-email\" type=\"email\" placeholder=\"nome@esempio.it\"><p class=\"ds-help\">Qui arriva la conferma dell'iscrizione.</p></div>",
+      "css": ".ds-field { display:grid; gap:6px; font-family:Barlow, system-ui, sans-serif; } .ds-field label { font-weight:600; color:#0e1e4a; } .ds-field abbr { text-decoration:none; color:#ce1b2b; } .ds-field input { min-height:50px; padding:10px 14px; font:500 1.0625rem/1.3 Barlow, system-ui, sans-serif; color:#0e1e4a; background:#fff; border:2px solid #b9c5e2; border-radius:8px; caret-color:#9c7314; transition:border-color .2s, box-shadow .2s; } .ds-field input::placeholder { color:#66739a; } .ds-field input:focus { outline:none; border-color:#0e1e4a; box-shadow:0 0 0 4px rgba(212,167,44,.35); } .ds-help { margin:0; font-size:.9rem; color:#66739a; }"
+    },
+    {
+      "name": "Scelta (radio)",
+      "kind": "chip",
+      "refersTo": "choice",
+      "description": "Riga intera cliccabile per radio e checkbox; selezionata diventa cielo con spunta oro.",
+      "html": "<label class=\"ds-choice\"><input type=\"radio\" name=\"ds-wa\" checked><span class=\"ds-choice-box\"></span><span class=\"ds-choice-text\"><strong>Sì</strong>, desidero essere inserito nel gruppo WhatsApp.</span></label>",
+      "css": ".ds-choice { position:relative; display:grid; grid-template-columns:26px 1fr; gap:12px; align-items:start; padding:14px 16px; border:2px solid #b9c5e2; border-radius:10px; background:#fff; cursor:pointer; font-family:Barlow, system-ui, sans-serif; color:#3d4b73; line-height:1.4; transition:border-color .2s, background-color .2s; } .ds-choice:hover { border-color:#0e1e4a; } .ds-choice input { position:absolute; opacity:0; width:1px; height:1px; } .ds-choice-box { width:26px; height:26px; margin-top:1px; border:2px solid #0e1e4a; border-radius:50%; background:#fff; position:relative; } .ds-choice input:checked ~ .ds-choice-box { background:#0e1e4a; } .ds-choice input:checked ~ .ds-choice-box::after { content:''; position:absolute; left:7px; top:3px; width:7px; height:12px; border:solid #f1d27a; border-width:0 3px 3px 0; transform:rotate(45deg); } .ds-choice:has(input:checked) { border-color:#0e1e4a; background:#e3f1fb; color:#0e1e4a; } .ds-choice strong { color:#0e1e4a; }"
+    },
+    {
+      "name": "Barra in alto",
+      "kind": "nav",
+      "refersTo": "topbar",
+      "description": "Barra sticky blu notte con filetto d'oro, nome in Cinzel e pulsante oro.",
+      "html": "<header class=\"ds-topbar\"><span class=\"ds-topbar-name\">Gold Lake Garda<small>Bulldog Francese</small></span><button class=\"ds-topbar-btn\">Iscriviti</button></header>",
+      "css": ".ds-topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 20px; background:#0e1e4a; color:#f6f1e4; border-bottom:3px solid #d4a72c; } .ds-topbar-name { font:700 1.15rem/1.05 Cinzel, 'Times New Roman', serif; color:#f1d27a; letter-spacing:.02em; } .ds-topbar-name small { display:block; margin-top:2px; font:600 .72rem/1.2 'Barlow Condensed', 'Arial Narrow', sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#b8c3e6; } .ds-topbar-btn { min-height:40px; padding:8px 18px; font:600 .95rem/1.1 Barlow, system-ui, sans-serif; color:#0e1e4a; background:linear-gradient(180deg,#f1d27a 0%,#d4a72c 55%,#9c7314 100%); border:2px solid #9c7314; border-radius:999px; cursor:pointer; } .ds-topbar-btn:focus-visible { outline:3px solid #d4a72c; outline-offset:3px; }"
+    },
+    {
+      "name": "Banda della data",
+      "kind": "custom",
+      "refersTo": "date-band",
+      "description": "Pennellata rossa ruotata con la data in Barlow Condensed 800.",
+      "html": "<div class=\"ds-date\"><svg class=\"ds-date-brush\" viewBox=\"0 0 640 150\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><defs><filter id=\"ds-rough\" x=\"-5%\" y=\"-20%\" width=\"110%\" height=\"140%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.012 0.09\" numOctaves=\"3\" seed=\"7\" result=\"n\"/><feDisplacementMap in=\"SourceGraphic\" in2=\"n\" scale=\"18\" xChannelSelector=\"R\" yChannelSelector=\"G\"/></filter></defs><g filter=\"url(#ds-rough)\"><path d=\"M14 38 C120 18 520 14 626 30 L634 112 C520 134 110 138 10 118 Z\" fill=\"#ce1b2b\"/></g></svg><span class=\"ds-date-day\">Sabato</span><time class=\"ds-date-date\">25 settembre 2027</time></div>",
+      "css": ".ds-date { position:relative; display:inline-grid; grid-template-rows:auto auto; padding:18px 40px 20px; color:#fff; transform:rotate(-1.5deg); filter:drop-shadow(0 10px 18px rgba(206,27,43,.35)); font-family:'Barlow Condensed', 'Arial Narrow', sans-serif; text-transform:uppercase; } .ds-date-brush { position:absolute; inset:0; width:100%; height:100%; z-index:0; } .ds-date-day, .ds-date-date { position:relative; z-index:1; font-weight:800; } .ds-date-day { font-size:1.4rem; letter-spacing:.14em; } .ds-date-date { font-size:3.2rem; line-height:1; text-shadow:0 2px 0 rgba(0,0,0,.25); }"
+    },
+    {
+      "name": "Zampa",
+      "kind": "custom",
+      "refersTo": "paw",
+      "description": "Il simbolo riusato nel prato dei 1.001, nei campi dei bulldog e nel successo.",
+      "html": "<svg class=\"ds-paw\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><ellipse cx=\"12\" cy=\"15.5\" rx=\"5.2\" ry=\"4.4\"/><ellipse cx=\"5.2\" cy=\"11\" rx=\"2.1\" ry=\"2.8\" transform=\"rotate(-18 5.2 11)\"/><ellipse cx=\"18.8\" cy=\"11\" rx=\"2.1\" ry=\"2.8\" transform=\"rotate(18 18.8 11)\"/><ellipse cx=\"9\" cy=\"6\" rx=\"2.1\" ry=\"2.9\"/><ellipse cx=\"15\" cy=\"6\" rx=\"2.1\" ry=\"2.9\"/></svg><svg class=\"ds-paw ds-paw-off\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><use href=\"#ds-paw-shape\"/><ellipse cx=\"12\" cy=\"15.5\" rx=\"5.2\" ry=\"4.4\"/><ellipse cx=\"5.2\" cy=\"11\" rx=\"2.1\" ry=\"2.8\" transform=\"rotate(-18 5.2 11)\"/><ellipse cx=\"18.8\" cy=\"11\" rx=\"2.1\" ry=\"2.8\" transform=\"rotate(18 18.8 11)\"/><ellipse cx=\"9\" cy=\"6\" rx=\"2.1\" ry=\"2.9\"/><ellipse cx=\"15\" cy=\"6\" rx=\"2.1\" ry=\"2.9\"/></svg>",
+      "css": ".ds-paw { width:26px; height:26px; fill:#d4a72c; margin-right:6px; background:#0e1e4a; padding:3px; border-radius:4px; } .ds-paw-off { fill:#27397a; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Il manifesto della sagra, stampato in oro",
+    "overview": "Il sistema nasce dalla locandina ufficiale del raduno e la traduce in pagina: un manifesto di festa popolare italiana, pieno e affettuoso, dove ogni blocco forte è dichiarato con materia (pennellata, oro metallico, tricolore) e non con un riquadro. Il blu notte è il fondo su cui l'oro brilla; il cielo chiaro ospita le parti da leggere; il rosso compare solo quando c'è una data o un'urgenza. La pagina non ha card: i contenuti stanno direttamente sul colore della sezione, separati da filetti sottili, pennellate e fasce a tutta larghezza.\n\nLa densità è generosa e verticale, pensata per il telefono: una cosa per volta, numeri grandi, pulsanti a pillola alti 48–56 px. Il tono è celebrativo ma onesto: ciò che non esiste ancora (programma, orari) si annuncia come \"in arrivo\", mai si inventa.",
+    "keyCharacteristics": [
+      "Blu notte e oro metallico come coppia dominante; rosso italiano solo per la data.",
+      "Pennellate strappate (SVG con feTurbulence) dietro la data e dietro l'obiettivo 1.001.",
+      "Cinzel 900 in oro per i titoli, Barlow Condensed 800 maiuscolo per numeri e date, Caveat Brush per le frasi dette a voce.",
+      "Nessuna card: sezioni piene, filetti sottili, fasce di colore a tutta larghezza.",
+      "Icone a tratto unico in oro scuro (stroke 1.8–2), mai glifi o emoji."
+    ],
+    "rules": [
+      { "name": "The Red Is a Date Rule", "body": "Il rosso pieno appare su una superficie solo quando porta una data o un'urgenza (banda della data, errori, asterisco, zampe appena iscritte). Mai come colore di sezione o di pulsante.", "section": "colors" },
+      { "name": "The Gold Speaks Rule", "body": "L'oro non riempie regioni: è lettera, filetto, zampa, pulsante. La regione la riempie il blu notte.", "section": "colors" },
+      { "name": "The Tinted Secondary Rule", "body": "Il testo secondario prende il colore della superficie: Su Notte 2 sul blu, Inchiostro 2/3 sul chiaro. Niente grigi neutri.", "section": "colors" },
+      { "name": "The Uppercase Is Condensed Rule", "body": "Tutto ciò che è maiuscolo e spaziato è Barlow Condensed; Cinzel è maiuscolo per natura e non si spazia oltre .12em.", "section": "typography" },
+      { "name": "The Metallic Lettering Rule", "body": "Il gradiente sul testo è ammesso solo per le lettere d'oro del lockup (nome, ordinale, razza), perché è il materiale della locandina. Nessun altro testo ha gradiente.", "section": "typography" },
+      { "name": "The No Card Rule", "body": "Nessun contenuto vive in un rettangolo bianco ombreggiato: modulo, contatori, successo e voci del programma stanno sul colore della sezione, separati da filetti di 1 px.", "section": "elevation" },
+      { "name": "The Brush Not Box Rule", "body": "Un blocco che deve urlare (data, obiettivo) sta su una pennellata SVG ruotata di 1–1.5°, mai su un rettangolo.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do mettere ogni azione principale in un solo pulsante oro per sezione, e le secondarie in navy o ghost.",
+      "Do usare le pennellate SVG per data e obiettivo, ruotate di 1–1.5°, con bordi strappati da feTurbulence.",
+      "Do tenere i titoli in Cinzel 900 (oro su blu, blu su chiaro) e tutto ciò che è maiuscolo e spaziato in Barlow Condensed.",
+      "Do separare i contenuti con filetti di 1 px e fasce di colore a tutta larghezza; il modulo poggia sulla carta.",
+      "Do colorare il testo secondario dalla superficie (Su Notte 2 sul blu, Inchiostro 2/3 sul chiaro) e tenere i placeholder a Inchiostro 3.",
+      "Do disegnare le icone a tratto unico in oro scuro e usare il <symbol id=\"paw\"> per ogni zampa."
+    ],
+    "donts": [
+      "Don't mettere contenuti in card bianche ombreggiate, né contatori in scatole: niente \"hero-metric\" con numero grande in un riquadro.",
+      "Don't usare il rosso per sezioni o pulsanti: solo date, errori, obbligatori e zampe appena iscritte.",
+      "Don't mettere etichette piccole e spaziate sopra un titolo (occhielli): la didascalia va sotto il valore.",
+      "Don't usare gradiente sul testo fuori dal lockup d'oro dell'hero.",
+      "Don't usare emoji o glifi Unicode come icone, né font di sistema per i titoli.",
+      "Don't mostrare il marchio Guinness World Records o la dicitura \"tentativo ufficiale\" finché la licenza non è confermata (vincolo di prodotto, non scelta visiva)."
+    ]
+  }
+}
