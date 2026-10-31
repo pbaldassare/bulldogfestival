@@ -55,9 +55,11 @@ L'unico evento italiano che punta a riunire 1.001 bulldog francesi in un giorno 
 
 ## Evidence on Hand
 
-- `assets/locandina.jpg` (1024×1536, probabilmente generata con l'AI) e il PDF di origine: unica fonte di immagini. Nessuna foto reale, nessun logo vettoriale o in alta risoluzione.
+- `assets/locandina.jpg` (1024×1536, probabilmente generata con l'AI) e il PDF di origine: fonte delle immagini dell'hero, del logo e del castello nella sezione Luogo. Nessun logo vettoriale.
+- Foto reali delle edizioni precedenti, fornite dal committente il 31/10/2026 e pubblicate nella sezione "Le edizioni precedenti": 3 del 1° raduno (foto di gruppo, pubblico seduto, coppia con due bulldog in passeggiata) e 3 del 2° raduno (gruppo sotto il castello, uomo con microfono e bulldog con medaglia sul palco, ritratto con bulldog). **L'assegnazione ai due raduni è dedotta** (2° = sole, castello e magliette "Secondo raduno nazionale", confermato dal telegiornale in diretta "2° raduno... da Moniga del Garda"; 1° = parco autunnale), non dichiarata dal committente. Nessuna data, luogo o numero dei partecipanti delle due edizioni è confermato: non scriverli.
+- Logo oro "GOLD LAKE GARDA — il raduno italiano dei bulldog francesi" in alta risoluzione (1536×1024, oro su bianco), fornito il 31/10/2026 ma non ancora usato nel sito.
 - Testi confermati dal committente (lettera): presentazione del gruppo WhatsApp, messaggio di successo, testo della conferma e-mail, frasi "INSIEME VERSO IL NOSTRO GRANDE SOGNO: 1001 BULLDOG FRANCESI!" e "INSIEME POSSIAMO REALIZZARE UN SOGNO STRAORDINARIO".
-- Nessun dato sulle edizioni precedenti, nessuna testimonianza, nessun partner confermato: non fabbricarli.
+- Nessuna testimonianza e nessun partner confermato: non fabbricarli. Sulle edizioni precedenti esistono solo le foto elencate sopra.
 
 ## Product Principles
 

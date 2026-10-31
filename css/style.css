@@ -302,6 +302,45 @@ section, .success { scroll-margin-top: 84px; } /* la barra in alto è fissa: gli
 .place__soon { font-size: .95rem; }
 .place__text .btn { margin-top: 20px; }
 
+/* ---------- EDIZIONI PRECEDENTI ---------- */
+.editions { background: var(--white); }
+.editions__inner { max-width: 980px; margin: 0 auto; padding: clamp(40px, 7vw, 80px) var(--gutter); }
+.editions__list { margin-top: 30px; display: grid; gap: clamp(30px, 6vw, 56px); }
+.edition + .edition { padding-top: clamp(30px, 6vw, 56px); border-top: 1px solid var(--sky-deep); }
+.edition__title { font: 900 clamp(1.5rem, 4vw, 2.2rem)/1.05 var(--display); color: var(--navy); text-transform: uppercase; letter-spacing: .02em; }
+.edition__num { font-size: 1.5em; color: var(--gold-dark); margin-right: .06em; }
+
+/* telefono: ogni edizione è una fila di foto che si sfoglia di lato, con la successiva che fa capolino */
+.edition__photos {
+  display: flex; align-items: center; gap: 14px;
+  margin: 8px calc(-1 * var(--gutter)) 0; padding: 20px var(--gutter) 26px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+  scrollbar-width: thin; scrollbar-color: var(--gold) transparent;
+}
+.shot { flex: 0 0 min(80%, 360px); margin: 0; scroll-snap-align: start; transform: rotate(var(--tilt, 0deg)); transition: transform .4s var(--ease-out); }
+.shot:nth-child(1) { --tilt: -1.2deg; }
+.shot:nth-child(2) { --tilt: 1deg; }
+.shot:nth-child(3) { --tilt: -.7deg; }
+.shot img {
+  width: 100%; height: auto; background: var(--sky);
+  border: 7px solid var(--white); outline: 1px solid var(--sky-deep); outline-offset: -1px;
+  border-radius: 3px; box-shadow: var(--shadow-2);
+}
+@media (hover: hover) { .shot:hover { transform: rotate(0deg) translateY(-4px); } }
+
+/* dagli 820 px: tre foto in fila, la principale al centro e più grande */
+@media (min-width: 820px) {
+  .edition__photos {
+    display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 28px; align-items: center;
+    margin: 8px 0 0; padding: 22px 0 0; overflow: visible; scroll-snap-type: none;
+  }
+  .shot { flex: none; }
+  .shot--l { grid-area: 1 / 1; }
+  .shot--hero { grid-area: 1 / 2; }
+  .shot--r { grid-area: 1 / 3; }
+}
+
 /* ---------- ISCRIZIONE ---------- */
 .register { background: var(--paper); }
 .register__inner { max-width: 760px; margin: 0 auto; padding: 0 var(--gutter) clamp(48px, 7vw, 90px); }

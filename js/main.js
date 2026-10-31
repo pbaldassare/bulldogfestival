@@ -270,6 +270,12 @@
 
   function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
+  /* ---------- Foto delle edizioni: sfogliabili da tastiera solo quando scorrono di lato ---------- */
+  const strips = $$('.edition__photos');
+  const markScrollable = () => strips.forEach(el => { el.tabIndex = el.scrollWidth > el.clientWidth + 1 ? 0 : -1; });
+  markScrollable();
+  window.addEventListener('resize', markScrollable);
+
   /* ---------- Barra in alto: ombra dopo lo scroll ---------- */
   const topbar = $('.topbar');
   const onScroll = () => topbar.classList.toggle('is-scrolled', window.scrollY > 12);
