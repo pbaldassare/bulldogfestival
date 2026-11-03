@@ -11,8 +11,9 @@ index.html        la pagina: hero, obiettivo 1.001, programma, luogo, edizioni p
 privacy.html      bozza dell'informativa privacy (i punti gialli vanno completati)
 css/style.css     stile
 js/config.js      ← l'unico file da toccare per contatori, limiti e dati evento
-js/api.js         strato dati del modulo (oggi: anteprima, salva solo nel browser)
+js/api.js         strato dati del modulo: parla con la Edge Function Supabase
 js/main.js        comportamento: contatori, modulo, .ics, condivisione
+supabase/         migrazione SQL e codice della Edge Function (non finiscono online con il sito)
 assets/           locandina originale, ritagli usati nel sito, font self-hosted
 PRODUCT.md        verità di prodotto (brief del committente, vincoli, testi confermati)
 DESIGN.md         sistema visivo registrato dopo la costruzione
@@ -26,24 +27,43 @@ python -m http.server 5198 --directory .
 
 poi apri <http://localhost:5198>.
 
-## Stato: anteprima senza database
+## Come funziona il modulo
 
-Per decisione del 16/10/2026 il modulo è completo lato interfaccia ma **non salva ancora**: `js/api.js` scrive solo nel `localStorage` del visitatore e il numero progressivo ricomincia da 0001 su ogni browser. Finché `preview: true` in `js/config.js`, la pagina mostra l'avviso "Anteprima" sopra il modulo.
+Il modulo invia i dati alla Edge Function `bulldogfestival-iscrizioni` del progetto Supabase `mjzjracjadlybvdttgto` ("Rank Ai Mediplan e lobby e labpiattaforma", schema `bulldogfestival`). La funzione:
 
-Per andare online davvero servono (specifica del committente in `assets/src/pdf_testo.txt`):
+1. controlla i dati (stesse regole del modulo, più i limiti del database) e ripulisce i simboli che i fogli di calcolo leggono come formule;
+2. salva l'iscrizione con un **numero progressivo** (1, 2, 3…, mai riassegnato) e un codice personale per l'accoglienza;
+3. segnala i **doppioni per e-mail** (stessa e-mail di un'iscrizione già presente → stato `da_verificare`, non conta nei contatori finché non lo confermi) e accetta al massimo 3 invii all'ora per e-mail;
+4. manda la **conferma via Resend** con il testo del committente e restituisce al sito il numero, che compare a schermo;
+5. a ogni visita, la stessa funzione dà al sito i **contatori** (iscrizioni, persone, bulldog) delle iscrizioni confermate.
 
-1. **Backend** (Supabase o equivalente): tabella iscrizioni con numero progressivo univoco mai riassegnato, nomi dei bulldog, scelta WhatsApp e telefono, stato (attiva / modificata / annullata), controllo doppioni per e-mail, contatori pubblici (iscrizioni, persone, bulldog / 1001).
-2. **E-mail di conferma automatica** con PDF personalizzato e QR code personale.
-3. **Archivio consultabile** dagli organizzatori (vista/esportazione tipo foglio di calcolo) con possibilità di correggere un'iscrizione.
-4. **Check-in** il giorno dell'evento via numero o QR: referente arrivato, accompagnatori e bulldog effettivi.
-5. **QR code generale** che porta alla pagina delle iscrizioni, da stampare e condividere.
+La tabella non è raggiungibile dal browser: nessun ruolo pubblico può leggerla (RLS attiva e nessuna policy), la scrive solo la funzione. Si consulta dal pannello Supabase → Table Editor → schema `bulldogfestival` → `iscrizioni`, che permette anche l'esportazione in CSV. Per correggere o annullare un'iscrizione basta cambiare `stato` (`annullata` la toglie dai contatori; il numero non viene riassegnato).
 
-Quando il backend c'è, si sostituiscono le due funzioni di `js/api.js` (`getCounts`, `submit`) mantenendo la stessa firma e si mette `preview: false`.
+### Secrets da impostare (Supabase → Edge Functions → Secrets)
+
+| Secret | Serve per | Note |
+|---|---|---|
+| `BULLDOG_RESEND_FROM` | mittente delle conferme, es. `Gold Lake Garda <iscrizioni@tuodominio.it>` | **Obbligatorio per le e-mail**; il dominio deve essere verificato su Resend. Senza, l'iscrizione si salva e la riga resta `email_stato = non_configurata`. Non usa `RESEND_FROM`, che è di MediPlan. |
+| `BULLDOG_RESEND_API_KEY` | chiave Resend dedicata | Facoltativo: se manca si usa `RESEND_API_KEY` (già presente per MediPlan), che deve poter inviare dal dominio del raduno. |
+| `BULLDOG_RESEND_REPLY_TO` | dove arrivano le risposte dei partecipanti | Facoltativo. |
+| `BULLDOG_ALLOWED_ORIGINS` | restringe il browser al tuo dominio, es. `https://tuodominio.it,https://www.tuodominio.it` | Facoltativo: vuoto = qualsiasi origine. |
+| `BULLDOG_SITE_URL` | link al sito nell'e-mail | Facoltativo. |
+
+La colonna `email_stato` dice com'è andato l'invio: `inviata`, `non_configurata` o `errore`.
+
+### Ancora da fare (dalla lettera del committente, `assets/src/pdf_testo.txt`)
+
+- **PDF personalizzato con QR code** allegato alla conferma: il codice per il QR c'è già (`codice`), manca generare PDF e immagine.
+- **Check-in** il giorno dell'evento (referente arrivato, accompagnatori e bulldog presenti) e conteggio distinto dei presenti.
+- **Modifica di un'iscrizione** da parte del partecipante: oggi si corregge dal pannello.
+- **QR code generale** verso la pagina delle iscrizioni, da stampare e condividere.
+- Per limitare lo spam oltre al limite per e-mail: una regola di rate limiting di Cloudflare sul sito o Turnstile nel modulo.
 
 ## Cose da fare prima della pubblicazione
 
-- [ ] **Guinness World Records**: il logo e la dicitura "tentativo ufficiale" non sono nel sito perché la richiesta non è ancora approvata. Il testo dice "tentare il Guinness World Records". Da rivedere con l'organizzazione quando arriva la conferma.
-- [ ] Completare `privacy.html` (titolare, sede, contatti, fornitori, tempi di conservazione).
+- [ ] **Guinness World Records**: il logo e la dicitura "tentativo ufficiale" non sono nel sito perché la richiesta non è ancora approvata. Il testo dice "puntare al record". Da rivedere con l'organizzazione quando arriva la conferma. (L'e-mail di conferma dice invece "1001 Bulldog Francesi" come nel testo del committente.)
+- [ ] Impostare i secrets `BULLDOG_RESEND_FROM` (e gli altri facoltativi) su Supabase: finché manca, il sito salva le iscrizioni ma non manda la conferma.
+- [ ] Completare `privacy.html` (titolare, sede, contatti, tempi di conservazione). Fornitori da citare: Supabase (database), Resend (invio e-mail), Cloudflare (hosting).
 - [ ] Contatti e social dell'organizzazione (oggi non ci sono).
 - [ ] Conferma delle foto delle edizioni precedenti: l'assegnazione al 1° e al 2° raduno è dedotta (vedi `PRODUCT.md`). Per scambiarle basta riordinare i `<figure>` nella sezione `#edizioni` di `index.html`. Mancano anno e luogo del 1° raduno.
 - [ ] Liberatoria per le foto: nelle immagini delle edizioni precedenti si riconoscono persone. Serve che l'organizzazione abbia l'informativa/liberatoria foto-video dei raduni e, se vuole, la citi in `privacy.html`.

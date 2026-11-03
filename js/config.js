@@ -1,15 +1,17 @@
-/* Impostazioni del sito. Questo è l'unico file da toccare per aggiornare
-   numeri e link finché il modulo non è collegato al database. */
+/* Impostazioni del sito: l'unico file da toccare per numeri, limiti e dati evento. */
 window.BF_CONFIG = {
-  // true finché le iscrizioni non vengono salvate davvero (mostra l'avviso "Anteprima").
-  preview: true,
+  // true solo se le iscrizioni NON vengono salvate (mostra l'avviso "Anteprima" sopra il modulo).
+  preview: false,
 
-  // Contatori mostrati nella sezione "Obiettivo 1.001". Aggiornarli a mano
-  // finché non arrivano dal database.
+  // Edge Function Supabase che riceve le iscrizioni, assegna il numero progressivo,
+  // manda la conferma via Resend e restituisce i contatori (codice in supabase/functions/).
+  api: 'https://mjzjracjadlybvdttgto.supabase.co/functions/v1/bulldogfestival-iscrizioni',
+
+  // Contatori mostrati nella sezione "Obiettivo 1.001" solo se il server non risponde.
   counts: { iscrizioni: 0, persone: 0, bulldog: 0 },
   goal: 1001,
 
-  // Limiti del modulo
+  // Limiti del modulo (gli stessi del database)
   maxBulldog: 30,
   maxAccompagnatori: 30,
 

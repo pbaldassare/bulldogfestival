@@ -25,7 +25,8 @@
 
   async function renderCounts() {
     const c = await API.getCounts();
-    const pct = Math.round((Math.min(c.bulldog || 0, CFG.goal) / CFG.goal) * 100);
+    // la riga d'avanzamento si vede almeno 1% appena c'è un bulldog iscritto
+    const pct = c.bulldog > 0 ? Math.max(1, Math.round((Math.min(c.bulldog, CFG.goal) / CFG.goal) * 100)) : 0;
     $('.counter--main').style.setProperty('--pct', pct);
     const start = () => {
       $$('[data-count]').forEach(el => countUp(el, c[el.dataset.count] || 0));
@@ -238,8 +239,14 @@
       const res = await API.submit(payload);
       showSuccess(res, payload);
     } catch (err) {
-      errBox.innerHTML = '<p><strong>Non siamo riusciti a registrare l\'iscrizione.</strong> Riprova tra qualche istante; se il problema continua, scrivici.</p>';
+      const code = err && err.code;
+      errBox.innerHTML =
+        code === 'rate_limited' ? '<p><strong>Hai già inviato più iscrizioni con questa e-mail nell\'ultima ora.</strong> Riprova più tardi, oppure scrivici.</p>'
+        : code === 'validation' ? '<p><strong>Alcuni dati non sono validi.</strong> Controlla il modulo e riprova.</p>'
+        : code === 'network' ? '<p><strong>Sembra che non ci sia connessione.</strong> Controlla la rete e riprova: quello che hai scritto è ancora qui.</p>'
+        : '<p><strong>Non siamo riusciti a registrare l\'iscrizione.</strong> Riprova tra qualche istante; se il problema continua, scrivici.</p>';
       errBox.hidden = false;
+      errBox.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
       btn.disabled = false; btn.classList.remove('is-busy');
     }
   });
@@ -247,9 +254,11 @@
   function showSuccess(res, p) {
     const panel = $('#success');
     $('#success-number').textContent = 'Iscrizione n. ' + String(res.number).padStart(4, '0');
-    $('#success-mail').innerHTML = res.emailSent
+    $('#success-mail').innerHTML = (res.emailSent
       ? 'Abbiamo inviato all\'indirizzo e-mail <strong>' + escapeHtml(p.email) + '</strong> la conferma della tua iscrizione, con il relativo numero progressivo.'
-      : 'Quando il sistema sarà attivo riceverai all\'indirizzo <strong>' + escapeHtml(p.email) + '</strong> la conferma con il tuo numero progressivo.' + (res.preview ? ' <em>(anteprima: questa iscrizione non è stata salvata)</em>' : '');
+      : 'La tua iscrizione è registrata, ma la e-mail di conferma non è partita: conserva questo numero, ti scriveremo noi a <strong>' + escapeHtml(p.email) + '</strong>.')
+      + (res.duplicateOf ? ' Con questo indirizzo risultava già l\'iscrizione n. ' + String(res.duplicateOf).padStart(4, '0') + ': controlleremo noi che non si tratti di un doppione.' : '')
+      + (res.preview ? ' <em>(anteprima: questa iscrizione non è stata salvata)</em>' : '');
     const names = p.bulldog.map(escapeHtml);
     const list = names.length === 1 ? names[0] : names.slice(0, -1).join(', ') + ' e ' + names[names.length - 1];
     $('#success-dogs').innerHTML = (p.n_bulldog === 1 ? 'Ti aspettiamo con <strong>' : 'Vi aspettiamo con <strong>') + list + '</strong>' +
@@ -261,11 +270,15 @@
     panel.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     setTimeout(() => panel.focus({ preventScroll: true }), 400);
 
-    // il contatore dei bulldog sale dei suoi (solo visivo, in questa pagina)
-    const el = $('[data-count="bulldog"]');
-    const cur = parseInt(el.textContent.replace(/\D/g, ''), 10) || 0;
-    el.textContent = fmt(cur + p.n_bulldog);
-    el.classList.add('is-bumped');
+    // i contatori salgono subito in questa pagina; un doppione da verificare non conta finché non è confermato
+    if (!res.duplicateOf) {
+      [['bulldog', p.n_bulldog], ['persone', p.totale_persone], ['iscrizioni', 1]].forEach(([k, add]) => {
+        const el = $('[data-count="' + k + '"]');
+        const cur = parseInt(el.textContent.replace(/\D/g, ''), 10) || 0;
+        el.textContent = fmt(cur + add);
+        el.classList.add('is-bumped');
+      });
+    }
   }
 
   function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }

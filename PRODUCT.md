@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-static HTML/CSS/JS (scelta dell'utente, 16/10/2026): una pagina, nessun build step, pubblicabile su qualsiasi hosting statico. Dominio e hosting non ancora decisi.
+static HTML/CSS/JS (scelta dell'utente, 16/10/2026): una pagina, nessun build step, pubblicabile su qualsiasi hosting statico. Ospitato su Cloudflare Pages (build `npm run build`, output `dist`); il 03/11/2026 l'utente ha puntato un dominio sul progetto Pages (nome non comunicato).
 
 ## Users
 
@@ -41,7 +41,8 @@ L'unico evento italiano che punta a riunire 1.001 bulldog francesi in un giorno 
   - Privacy: informativa con presa visione obbligatoria; la scelta WhatsApp è separata.
   - Dopo l'invio: messaggio a schermo "ISCRIZIONE REGISTRATA CON SUCCESSO!" con il testo della lettera; numero progressivo univoco (ISCRIZIONE N. 0001…), mai riassegnato; e-mail di conferma automatica personalizzata con PDF e QR code personale.
   - Archivio consultabile (Google Sheets/Excel o equivalente) con stato iscrizione (attiva/modificata/annullata) e stato e-mail; controllo doppioni per e-mail; contatori separati: iscrizioni, persone, bulldog / 1001; check-in il giorno dell'evento (referente arrivato, accompagnatori e bulldog effettivi).
-- Stato al 16/10/2026: per decisione dell'utente il sito nasce SENZA database. Il modulo è completo lato interfaccia ma non salva; numero progressivo, e-mail, archivio, contatori reali e check-in richiedono il collegamento a un backend (Supabase) come passo successivo. I contatori mostrano valori impostati a mano in `js/config.js`.
+- Stato al 03/11/2026: il modulo salva davvero. Edge Function `bulldogfestival-iscrizioni` sul progetto Supabase `mjzjracjadlybvdttgto` (schema `bulldogfestival`, tabella non esposta alle API): numero progressivo mai riassegnato, doppioni per e-mail segnalati come `da_verificare` e fuori dai contatori, limite di 3 invii/ora per e-mail, contatori reali dal database, conferma via Resend (mittente `BULLDOG_RESEND_FROM`, da non confondere con `RESEND_FROM` di MediPlan, che vive nello stesso progetto). L'invio delle e-mail dipende dai secrets Supabase impostati dall'utente.
+- Ancora da fare dalla lettera del committente: PDF personalizzato con QR code, check-in il giorno dell'evento, modifica dell'iscrizione da parte del partecipante, QR code generale, archivio in Google Sheets/Excel (oggi: Table Editor Supabase con export CSV).
 - Nessun pagamento, nessun programma: non inventarli.
 - **Guinness World Records:** la richiesta NON è approvata. Non usare il logo Guinness né la dicitura "tentativo ufficiale Guinness World Records" finché l'organizzazione non conferma la licenza. Si può dire "obiettivo 1.001 bulldog francesi" e "puntiamo al record".
 - Lingua: italiano.
