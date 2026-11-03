@@ -277,10 +277,14 @@ async function inviaConferma(r: Registrazione, d: Dati): Promise<EsitoEmail> {
     });
     if (!res.ok) {
       let nome = "";
+      let messaggio = "";
       try {
-        nome = String((await res.json())?.name ?? "");
+        const corpo = await res.json();
+        nome = String(corpo?.name ?? "");
+        messaggio = String(corpo?.message ?? "").slice(0, 300);
       } catch { /* risposta non JSON */ }
-      console.error("resend:", res.status, nome);
+      // il messaggio resta solo nei log del server: può nominare l'account Resend, non va restituito al browser
+      console.error("resend:", res.status, nome, messaggio);
       return { stato: "failed", errore: `resend_${res.status}${nome ? ":" + nome : ""}` };
     }
     return { stato: "sent" };
