@@ -51,6 +51,24 @@ La tabella non è raggiungibile dal browser: nessun ruolo pubblico può leggerla
 
 La colonna `email_stato` dice com'è andato l'invio: `inviata`, `non_configurata` o `errore`.
 
+### Report giornaliero a info@gardawellfit.eu
+
+Ogni giorno alle **06:00 UTC** (07:00 in inverno, 08:00 con l'ora legale) un job di `pg_cron` (`bulldogfestival-report-giornaliero`) chiama la Edge Function `bulldogfestival-report`, che manda a **info@gardawellfit.eu**:
+
+- un riepilogo (iscrizioni confermate, persone, bulldog su 1001, nuove nelle ultime 24 ore, quanti vogliono entrare nel gruppo WhatsApp);
+- la sezione **"Da controllare"** con i flag: doppioni da verificare, conferme e-mail non inviate, annullate;
+- la tabella di **tutti gli iscritti** con i loro flag (NUOVA, DOPPIONE di…, CONFERMA E-MAIL NON INVIATA, ANNULLATA…; le righe da controllare sono evidenziate), le ultime 150 nel corpo del messaggio;
+- il **CSV completo** in allegato (`iscrizioni-AAAA-MM-GG.csv`, separatore `;`, si apre con Excel): tutti i campi, compresi stato, conferma e-mail, WhatsApp, telefono e codice di accoglienza.
+
+Il report parte anche con zero iscrizioni, così si vede che il sistema è vivo. La chiamata del cron è autenticata da un segreto casuale che sta solo nel vault del database (`bulldogfestival_report_secret`): non c'è nessun secret da impostare a mano. Il mittente è lo stesso delle conferme (`BULLDOG_RESEND_FROM`).
+
+- **Cambiare destinatari:** secret facoltativo `BULLDOG_REPORT_TO` su Supabase (indirizzi separati da virgola, al massimo 5); senza, vale `info@gardawellfit.eu`.
+- **Cambiare orario:** `select cron.alter_job((select jobid from cron.job where jobname = 'bulldogfestival-report-giornaliero'), schedule := '0 7 * * *');` nell'SQL editor (l'orario è in UTC).
+- **Mandarlo subito a mano:** nell'SQL editor, `select net.http_post(url := 'https://mjzjracjadlybvdttgto.supabase.co/functions/v1/bulldogfestival-report', headers := jsonb_build_object('Content-Type', 'application/json', 'Authorization', 'Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name = 'bulldogfestival_report_secret')), body := '{}'::jsonb);`. Per provarlo senza spedire niente a info@ si può passare `'{"dry_run": true}'` o `'{"to": "altro@indirizzo"}'` come body.
+- **Vedere se è partito:** `select status, return_message, start_time from cron.job_run_details order by start_time desc limit 5;` e, per la risposta della funzione, la tabella `net._http_response`.
+
+Il report contiene dati personali dei partecipanti (nomi, e-mail, telefoni) e viaggia per e-mail: va tenuto tra chi organizza il raduno.
+
 ### Ancora da fare (dalla lettera del committente, `assets/src/pdf_testo.txt`)
 
 - **PDF personalizzato con QR code** allegato alla conferma: il codice per il QR c'è già (`codice`), manca generare PDF e immagine.
