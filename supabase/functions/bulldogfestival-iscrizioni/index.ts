@@ -297,9 +297,15 @@ async function inviaConferma(r: Registrazione, d: Dati, reinvio = false): Promis
 }
 
 // ---------- Reinvio della conferma (solo per chi organizza) ----------
-// POST { "reinvia": <numero iscrizione> } con Authorization: Bearer <segreto nel vault, lo stesso del report>.
-// Rimanda la conferma all'indirizzo che il partecipante ha scritto nel modulo.
-async function reinviaConferma(req: Request, supabase: ReturnType<typeof admin>, numeroRaw: unknown): Promise<Response> {
+// POST { "reinvia": <numero iscrizione>, "to": "indirizzo" (facoltativo) } con Authorization: Bearer <segreto nel vault,
+// lo stesso del report>. Rimanda la conferma all'indirizzo che il partecipante ha scritto nel modulo oppure, se c'è
+// "to", a quell'indirizzo (una copia per chi organizza): in quel caso lo stato della conferma del partecipante non cambia.
+async function reinviaConferma(
+  req: Request,
+  supabase: ReturnType<typeof admin>,
+  numeroRaw: unknown,
+  destinatarioRaw?: unknown,
+): Promise<Response> {
   const token = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "").trim();
   if (!token) return json(req, 401, { error: "unauthorized" });
   const { data: autorizzato, error: errAuth } = await supabase.rpc("bf_report_autorizzato", { p_token: token });
@@ -336,14 +342,23 @@ async function reinviaConferma(req: Request, supabase: ReturnType<typeof admin>,
     telefono: i.telefono === null ? null : String(i.telefono),
   };
 
+  let copia = false;
+  if (destinatarioRaw !== undefined && destinatarioRaw !== null && destinatarioRaw !== "") {
+    const a = typeof destinatarioRaw === "string" ? destinatarioRaw.trim().toLowerCase() : "";
+    if (a.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(a)) return json(req, 400, { error: "destinatario" });
+    dati.email = a;
+    copia = true;
+  }
+
   const esito = await inviaConferma(reg, dati, true);
-  if (esito.stato === "sent") {
+  if (esito.stato === "sent" && !copia) {
     const { error: errSegna } = await supabase.rpc("bf_segna_email", { p_id: reg.id, p_stato: "inviata" });
     if (errSegna) console.error("segna_email:", errSegna.message);
   }
   return json(req, 200, {
     ok: true,
     number: reg.numero,
+    copia,
     emailSent: esito.stato === "sent",
     emailStatus: esito.stato,
     ...(esito.errore ? { emailError: esito.errore } : {}),
@@ -378,7 +393,8 @@ Deno.serve(async (req) => {
 
   // reinvio manuale della conferma: richiede il segreto, i partecipanti non passano di qui
   if (body && typeof body === "object" && "reinvia" in body) {
-    return await reinviaConferma(req, supabase, (body as Record<string, unknown>).reinvia);
+    const b = body as Record<string, unknown>;
+    return await reinviaConferma(req, supabase, b.reinvia, b.to);
   }
 
   const controllo = valida(body);
