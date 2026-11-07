@@ -27,6 +27,7 @@
   --red: #ce1b2b;
   --red-dark: #a3101f;
   --green: #0b8a43;
+  --paw-on: #34c26e;     /* zampe dei bulldog iscritti: verde più chiaro del tricolore, per leggersi sul blu */
   --sky: #e3f1fb;
   --sky-deep: #c9e3f5;
   --white: #ffffff;
@@ -84,6 +85,7 @@ section, .success { scroll-margin-top: 84px; } /* la barra in alto è fissa: gli
   padding: 10px 16px; background: var(--gold); color: var(--navy); font-weight: 600; border-radius: 6px;
 }
 .skip:focus { top: 12px; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; list-style: none; }
 
 /* ---------- Bottoni ---------- */
 .btn {
@@ -271,6 +273,31 @@ section, .success { scroll-margin-top: 84px; } /* la barra in alto è fissa: gli
 .counter__value.is-bumped { animation: bump .6s var(--ease-out); }
 @keyframes bump { 30% { transform: scale(1.12); } }
 
+
+/* griglia di 1.001 zampe: verdi quelle dei bulldog iscritti; il nome compare al passaggio del mouse o al tocco */
+.paws {
+  position: relative;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 3px;
+  margin: 26px auto 0; max-width: 900px;
+  padding: 16px 12px; border-radius: var(--radius);
+  background: rgba(9, 21, 56, .55); border: 1px solid var(--navy-line);
+}
+/* il padding allarga l'area che risponde al mouse e al dito, il margine negativo lascia la griglia com'era */
+.paw { box-sizing: content-box; width: 9px; height: 9px; padding: 2px; margin: -2px; fill: #27397a; transition: fill .5s var(--ease-out), transform .5s var(--ease-out); }
+.paw.is-on { fill: var(--paw-on); cursor: pointer; }
+.paw.is-mine { transform: scale(1.35); }
+.paws__legend { margin-top: 10px; font: 600 .82rem/1.2 var(--cond); letter-spacing: .14em; text-transform: uppercase; color: var(--on-navy-2); display: flex; justify-content: center; gap: 8px; align-items: center; flex-wrap: wrap; }
+.paws__dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #27397a; margin-left: 10px; }
+.paws__dot--on { background: var(--paw-on); margin-left: 0; }
+.paws__hint { margin: 6px auto 0; max-width: 44ch; font-size: .9rem; color: var(--on-navy-2); }
+.paw-tip {
+  position: absolute; z-index: 5; left: 0; top: 0;
+  width: max-content; max-width: min(70%, 240px); padding: 6px 12px;
+  font: 600 .95rem/1.25 var(--body); color: var(--navy-deep); text-align: center; overflow-wrap: anywhere;
+  background: var(--on-navy); border-radius: 10px; box-shadow: 0 6px 16px -6px rgba(0, 0, 0, .6);
+  transform: translate(-50%, -100%); pointer-events: none;
+}
+.paw-tip::after { content: ""; position: absolute; left: calc(50% + var(--arrow-x, 0px)); bottom: -5px; width: 10px; height: 10px; background: var(--on-navy); transform: translateX(-50%) rotate(45deg); }
 
 .goal__hand { position: relative; display: inline-block; margin-top: 30px; font-size: clamp(2rem, 6.5vw, 3.4rem); padding-bottom: 8px; }
 .goal__hand::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: 0; height: 5px; border-radius: 3px; background: var(--red); transform: rotate(-1deg); }
@@ -473,6 +500,7 @@ section, .success { scroll-margin-top: 84px; } /* la barra in alto è fissa: gli
   .counters { grid-template-columns: 1.6fr 1fr 1fr; }
   .counter--main { grid-column: auto; grid-row: 1 / span 1; }
   .hero__dog { width: 120px; right: 20px; bottom: calc(min(100vw, 1180px) * 0.2803 - 60px); }
+  .paw { width: 13px; height: 13px; }
 }
 @media (min-width: 820px) {
   .place__inner { grid-template-columns: 320px 1fr; gap: 48px; }
@@ -485,6 +513,7 @@ section, .success { scroll-margin-top: 84px; } /* la barra in alto è fissa: gli
   .topbar__name { font-size: 1.15rem; }
 }
 @media (min-width: 1100px) {
+  .paw { width: 16px; height: 16px; }
   /* sul desktop il bulldog diventa un cammeo ad arco che emerge dalla folla, a destra del titolo */
   .hero__dog {
     right: max(32px, calc(50% - 560px));

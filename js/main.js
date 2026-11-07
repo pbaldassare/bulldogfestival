@@ -1,4 +1,4 @@
-/* Comportamento della pagina: prato delle zampe, contatori, modulo, calendario, condivisione. */
+/* Comportamento della pagina: contatori, prato delle zampe con i nomi dei bulldog, modulo, calendario, condivisione. */
 (function () {
   'use strict';
   const CFG = window.BF_CONFIG;
@@ -11,7 +11,114 @@
   /* ---------- Anteprima ---------- */
   if (CFG.preview) $$('[data-preview-only]').forEach(el => { el.hidden = false; });
 
+  /* ---------- Prato delle zampe ---------- */
+  const pawsEl = $('#paws');
+  const tipEl = $('#paw-tip');
+  const namesEl = $('#paws-names');
+  const paws = [];          // le 1.001 zampe, nell'ordine di iscrizione
+  let names = [];           // nomi dei bulldog iscritti, nello stesso ordine
+  let filled = 0;           // quante zampe sono verdi
+
+  function buildPaws() {
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < CFG.goal; i++) {
+      const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      s.setAttribute('class', 'paw');
+      const u = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      u.setAttribute('href', '#paw');
+      s.appendChild(u);
+      paws.push(s);
+      frag.appendChild(s);
+    }
+    pawsEl.appendChild(frag);
+  }
+
+  function lightPaw(i, name, extraClass, delay) {
+    const p = paws[i];
+    if (!p) return;
+    if (name) p.dataset.nome = name;
+    const on = () => { p.classList.add('is-on'); if (extraClass) p.classList.add(extraClass); };
+    if (reduceMotion || !delay) on(); else setTimeout(on, delay);
+  }
+
+  // onda che parte dall'inizio del prato, pochi ms per zampa
+  function lightPaws() {
+    const n = Math.min(filled, paws.length);
+    for (let i = 0; i < n; i++) lightPaw(i, names[i], '', Math.min(i * 6, 2400));
+  }
+
+  // elenco dei nomi per chi usa un lettore di schermo (la griglia è solo visiva)
+  function addNameToList(nome) {
+    const li = document.createElement('li');
+    li.textContent = nome;
+    namesEl.appendChild(li);
+  }
+
+  /* Il nome compare al passaggio del mouse o al tocco di una zampa verde: solo il nome del bulldog. */
+  let tipFor = null, tipTimer = null, lastPointer = 'mouse';
+
+  function hideTip() { tipEl.hidden = true; tipFor = null; clearTimeout(tipTimer); }
+
+  function showTip(p) {
+    const nome = p && p.dataset.nome;
+    if (!nome) { hideTip(); return; }
+    tipEl.textContent = nome;           // testo, mai HTML: il nome lo scrive chi si iscrive
+    tipEl.hidden = false;
+    const c = pawsEl.getBoundingClientRect(), r = p.getBoundingClientRect();
+    const w = tipEl.offsetWidth;
+    const cx = r.left - c.left - pawsEl.clientLeft + r.width / 2;
+    const x = Math.max(w / 2 + 4, Math.min(pawsEl.clientWidth - w / 2 - 4, cx));   // resta dentro il riquadro
+    tipEl.style.left = x + 'px';
+    tipEl.style.top = (r.top - c.top - pawsEl.clientTop - 6) + 'px';
+    tipEl.style.setProperty('--arrow-x', (cx - x) + 'px');       // la freccina punta alla zampa
+    tipFor = p;
+  }
+
+  // col dito la zampa è piccola: si prende la zampa verde più vicina al tocco
+  function nearestPaw(x, y) {
+    let best = null, bestD = Infinity;
+    for (let dy = -18; dy <= 18; dy += 9) {
+      for (let dx = -18; dx <= 18; dx += 9) {
+        const el = document.elementFromPoint(x + dx, y + dy);
+        const p = el && el.closest ? el.closest('.paw.is-on') : null;
+        if (!p) continue;
+        const r = p.getBoundingClientRect();
+        const d = Math.hypot(r.left + r.width / 2 - x, r.top + r.height / 2 - y);
+        if (d < bestD) { best = p; bestD = d; }
+      }
+    }
+    return best;
+  }
+
+  pawsEl.addEventListener('pointerdown', e => { lastPointer = e.pointerType; });
+  pawsEl.addEventListener('pointerover', e => {
+    if (e.pointerType !== 'mouse') return;
+    const p = e.target.closest ? e.target.closest('.paw.is-on') : null;
+    if (p) showTip(p); else hideTip();
+  });
+  pawsEl.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hideTip(); });
+  pawsEl.addEventListener('click', e => {
+    if (lastPointer === 'mouse') return;               // col mouse basta il passaggio
+    const p = nearestPaw(e.clientX, e.clientY);
+    if (!p || p === tipFor) { hideTip(); return; }
+    showTip(p);
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(hideTip, 3500);
+  });
+  document.addEventListener('pointerdown', e => { if (!pawsEl.contains(e.target)) hideTip(); });
+  window.addEventListener('resize', hideTip);
+
+  buildPaws();
+
   /* ---------- Contatori ---------- */
+  function whenVisible(el, fn, threshold) {
+    if (!('IntersectionObserver' in window)) { fn(); return; }
+    const io = new IntersectionObserver((es) => {
+      if (es.some(e => e.isIntersecting)) { fn(); io.disconnect(); }
+    }, { threshold });
+    io.observe(el);
+  }
+
   function countUp(el, to) {
     if (reduceMotion || to === 0) { el.textContent = fmt(to); return; }
     const dur = 1400, t0 = performance.now();
@@ -28,15 +135,14 @@
     // la riga d'avanzamento si vede almeno 1% appena c'è un bulldog iscritto
     const pct = c.bulldog > 0 ? Math.max(1, Math.round((Math.min(c.bulldog, CFG.goal) / CFG.goal) * 100)) : 0;
     $('.counter--main').style.setProperty('--pct', pct);
-    const start = () => {
-      $$('[data-count]').forEach(el => countUp(el, c[el.dataset.count] || 0));
-    };
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((es) => {
-        if (es.some(e => e.isIntersecting)) { start(); io.disconnect(); }
-      }, { threshold: 0.25 });
-      io.observe($('.counters'));
-    } else start();
+
+    names = c.nomi || [];
+    filled = Math.min(c.bulldog || 0, CFG.goal);
+    namesEl.textContent = '';
+    names.slice(0, filled).forEach(addNameToList);
+
+    whenVisible($('.counters'), () => $$('[data-count]').forEach(el => countUp(el, c[el.dataset.count] || 0)), 0.25);
+    whenVisible(pawsEl, lightPaws, 0.1);
   }
 
   renderCounts();
@@ -278,6 +384,13 @@
         el.textContent = fmt(cur + add);
         el.classList.add('is-bumped');
       });
+      // le zampe dei suoi bulldog diventano verdi subito, con il loro nome
+      p.bulldog.forEach((nome, k) => {
+        names[filled + k] = nome;
+        lightPaw(filled + k, nome, 'is-mine', 0);
+        addNameToList(nome);
+      });
+      filled += p.n_bulldog;
     }
   }
 

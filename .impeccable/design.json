@@ -4,41 +4,239 @@
   "title": "Design System: Gold Lake Garda — Bulldog Francese",
   "extensions": {
     "colorMeta": {
-      "notte": { "role": "primary", "displayName": "Blu Notte", "canonical": "#0e1e4a", "tonalRamp": ["#05091c", "#091538", "#0e1e4a", "#1a2d63", "#2a3f7d", "#5a6ea8", "#9aa8d2", "#dfe5f5"] },
-      "oro": { "role": "primary", "displayName": "Oro", "canonical": "#d4a72c", "tonalRamp": ["#3d2c05", "#7a5a0e", "#9c7314", "#b98a1e", "#d4a72c", "#e8c65a", "#f1d27a", "#faeec6"] },
-      "rosso-italia": { "role": "secondary", "displayName": "Rosso Italia", "canonical": "#ce1b2b", "tonalRamp": ["#3a0509", "#7a0d18", "#a3101f", "#ce1b2b", "#e23b48", "#ee7a83", "#f5b3b9", "#fdeaec"] },
-      "verde-tricolore": { "role": "secondary", "displayName": "Verde Tricolore", "canonical": "#0b8a43", "tonalRamp": ["#032613", "#064d26", "#0b8a43", "#1e9e55", "#3fb873", "#7fd3a2", "#bfe9d0", "#e9f8ef"] },
-      "cielo": { "role": "neutral", "displayName": "Cielo", "canonical": "#e3f1fb", "tonalRamp": ["#1c3348", "#35607f", "#5d8fb3", "#8fb9d6", "#b4d4ea", "#c9e3f5", "#e3f1fb", "#f4faff"] },
-      "carta": { "role": "neutral", "displayName": "Carta", "canonical": "#f7f9fc", "tonalRamp": ["#262a33", "#4a5160", "#7b8494", "#aeb6c4", "#d2d8e2", "#e8ecf3", "#f7f9fc", "#ffffff"] },
-      "inchiostro-2": { "role": "neutral", "displayName": "Inchiostro 2 (testo su chiaro)", "canonical": "#3d4b73", "tonalRamp": ["#0e1e4a", "#1a2d63", "#3d4b73", "#66739a", "#8e99bb", "#b8c3e6", "#dfe5f5", "#f4f6fb"] },
-      "su-notte": { "role": "neutral", "displayName": "Su Notte (bianco caldo)", "canonical": "#f6f1e4", "tonalRamp": ["#4a4330", "#7a7050", "#a89b74", "#c9bd98", "#e2d8bd", "#efe8d3", "#f6f1e4", "#fdfbf5"] }
+      "notte": {
+        "role": "primary",
+        "displayName": "Blu Notte",
+        "canonical": "#0e1e4a",
+        "tonalRamp": [
+          "#05091c",
+          "#091538",
+          "#0e1e4a",
+          "#1a2d63",
+          "#2a3f7d",
+          "#5a6ea8",
+          "#9aa8d2",
+          "#dfe5f5"
+        ]
+      },
+      "oro": {
+        "role": "primary",
+        "displayName": "Oro",
+        "canonical": "#d4a72c",
+        "tonalRamp": [
+          "#3d2c05",
+          "#7a5a0e",
+          "#9c7314",
+          "#b98a1e",
+          "#d4a72c",
+          "#e8c65a",
+          "#f1d27a",
+          "#faeec6"
+        ]
+      },
+      "rosso-italia": {
+        "role": "secondary",
+        "displayName": "Rosso Italia",
+        "canonical": "#ce1b2b",
+        "tonalRamp": [
+          "#3a0509",
+          "#7a0d18",
+          "#a3101f",
+          "#ce1b2b",
+          "#e23b48",
+          "#ee7a83",
+          "#f5b3b9",
+          "#fdeaec"
+        ]
+      },
+      "verde-tricolore": {
+        "role": "secondary",
+        "displayName": "Verde Tricolore",
+        "canonical": "#0b8a43",
+        "tonalRamp": [
+          "#032613",
+          "#064d26",
+          "#0b8a43",
+          "#1e9e55",
+          "#3fb873",
+          "#7fd3a2",
+          "#bfe9d0",
+          "#e9f8ef"
+        ]
+      },
+      "cielo": {
+        "role": "neutral",
+        "displayName": "Cielo",
+        "canonical": "#e3f1fb",
+        "tonalRamp": [
+          "#1c3348",
+          "#35607f",
+          "#5d8fb3",
+          "#8fb9d6",
+          "#b4d4ea",
+          "#c9e3f5",
+          "#e3f1fb",
+          "#f4faff"
+        ]
+      },
+      "carta": {
+        "role": "neutral",
+        "displayName": "Carta",
+        "canonical": "#f7f9fc",
+        "tonalRamp": [
+          "#262a33",
+          "#4a5160",
+          "#7b8494",
+          "#aeb6c4",
+          "#d2d8e2",
+          "#e8ecf3",
+          "#f7f9fc",
+          "#ffffff"
+        ]
+      },
+      "inchiostro-2": {
+        "role": "neutral",
+        "displayName": "Inchiostro 2 (testo su chiaro)",
+        "canonical": "#3d4b73",
+        "tonalRamp": [
+          "#0e1e4a",
+          "#1a2d63",
+          "#3d4b73",
+          "#66739a",
+          "#8e99bb",
+          "#b8c3e6",
+          "#dfe5f5",
+          "#f4f6fb"
+        ]
+      },
+      "su-notte": {
+        "role": "neutral",
+        "displayName": "Su Notte (bianco caldo)",
+        "canonical": "#f6f1e4",
+        "tonalRamp": [
+          "#4a4330",
+          "#7a7050",
+          "#a89b74",
+          "#c9bd98",
+          "#e2d8bd",
+          "#efe8d3",
+          "#f6f1e4",
+          "#fdfbf5"
+        ]
+      },
+      "verde-zampa": {
+        "role": "secondary",
+        "displayName": "Verde Zampa",
+        "canonical": "#34c26e",
+        "tonalRamp": [
+          "#0a2f1a",
+          "#145a31",
+          "#1f8a4c",
+          "#2aa95f",
+          "#34c26e",
+          "#6bd999",
+          "#a3e8c1",
+          "#dcf7e8"
+        ]
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display (Cinzel 900 oro)", "purpose": "Solo il lockup dell'hero: ordinale, nome, razza. Gradiente metallico + doppia ombra." },
-      "headline": { "displayName": "Headline (Cinzel 900)", "purpose": "Titoli di sezione: blu su chiaro, oro chiaro su blu." },
-      "numeral": { "displayName": "Numeral (Barlow Condensed 800)", "purpose": "1.001, data, contatori; tabular-nums." },
-      "title": { "displayName": "Title (Barlow Condensed 800 maiuscolo)", "purpose": "Voci del programma e gruppi del modulo." },
-      "body": { "displayName": "Body (Barlow 400)", "purpose": "Testo corrente, misura ≤68ch." },
-      "label": { "displayName": "Label (Barlow Condensed 600 spaziato)", "purpose": "Didascalie sotto i numeri, legenda. Mai sopra un titolo." },
-      "hand": { "displayName": "Hand (Caveat Brush)", "purpose": "Frasi dette a voce, con sottolineatura rossa a pennello." }
+      "display": {
+        "displayName": "Display (Cinzel 900 oro)",
+        "purpose": "Solo il lockup dell'hero: ordinale, nome, razza. Gradiente metallico + doppia ombra."
+      },
+      "headline": {
+        "displayName": "Headline (Cinzel 900)",
+        "purpose": "Titoli di sezione: blu su chiaro, oro chiaro su blu."
+      },
+      "numeral": {
+        "displayName": "Numeral (Barlow Condensed 800)",
+        "purpose": "1.001, data, contatori; tabular-nums."
+      },
+      "title": {
+        "displayName": "Title (Barlow Condensed 800 maiuscolo)",
+        "purpose": "Voci del programma e gruppi del modulo."
+      },
+      "body": {
+        "displayName": "Body (Barlow 400)",
+        "purpose": "Testo corrente, misura ≤68ch."
+      },
+      "label": {
+        "displayName": "Label (Barlow Condensed 600 spaziato)",
+        "purpose": "Didascalie sotto i numeri, legenda. Mai sopra un titolo."
+      },
+      "hand": {
+        "displayName": "Hand (Caveat Brush)",
+        "purpose": "Frasi dette a voce, con sottolineatura rossa a pennello."
+      }
     },
     "shadows": [
-      { "name": "lettere-oro", "value": "drop-shadow(0 2px 0 #7a5a0e) drop-shadow(0 6px 10px rgba(14,30,74,.25))", "purpose": "Rilievo del lockup in oro." },
-      { "name": "pulsante-oro", "value": "0 6px 16px -6px rgba(156,115,20,.6), inset 0 1px 0 rgba(255,255,255,.55)", "purpose": "Pulsante primario a riposo." },
-      { "name": "pulsante-oro-hover", "value": "0 12px 24px -8px rgba(156,115,20,.7), inset 0 1px 0 rgba(255,255,255,.55)", "purpose": "Pulsante primario sollevato di 2px." },
-      { "name": "banda-rossa", "value": "drop-shadow(0 10px 18px rgba(206,27,43,.35))", "purpose": "La data galleggia sul cielo." },
-      { "name": "foto", "value": "0 14px 34px -12px rgba(14,30,74,.35)", "purpose": "Polaroid del castello." },
-      { "name": "barra-scrollata", "value": "0 8px 24px -10px rgba(0,0,0,.6)", "purpose": "Barra sticky dopo 12px di scroll." }
+      {
+        "name": "lettere-oro",
+        "value": "drop-shadow(0 2px 0 #7a5a0e) drop-shadow(0 6px 10px rgba(14,30,74,.25))",
+        "purpose": "Rilievo del lockup in oro."
+      },
+      {
+        "name": "pulsante-oro",
+        "value": "0 6px 16px -6px rgba(156,115,20,.6), inset 0 1px 0 rgba(255,255,255,.55)",
+        "purpose": "Pulsante primario a riposo."
+      },
+      {
+        "name": "pulsante-oro-hover",
+        "value": "0 12px 24px -8px rgba(156,115,20,.7), inset 0 1px 0 rgba(255,255,255,.55)",
+        "purpose": "Pulsante primario sollevato di 2px."
+      },
+      {
+        "name": "banda-rossa",
+        "value": "drop-shadow(0 10px 18px rgba(206,27,43,.35))",
+        "purpose": "La data galleggia sul cielo."
+      },
+      {
+        "name": "foto",
+        "value": "0 14px 34px -12px rgba(14,30,74,.35)",
+        "purpose": "Polaroid del castello."
+      },
+      {
+        "name": "barra-scrollata",
+        "value": "0 8px 24px -10px rgba(0,0,0,.6)",
+        "purpose": "Barra sticky dopo 12px di scroll."
+      }
     ],
     "motion": [
-      { "name": "ease-out", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "Ogni transizione di stato (hover, ingresso dei campi)." },
-           { "name": "conteggio", "value": "1400ms, ease-out cubico", "purpose": "I contatori salgono al valore reale." },
-      { "name": "campo-nuovo", "value": "dog-in .45s (opacity + translateY 8px)", "purpose": "Nuovo campo nome bulldog e campo telefono WhatsApp." }
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Ogni transizione di stato (hover, ingresso dei campi)."
+      },
+      {
+        "name": "onda-zampe",
+        "value": "6ms per zampa, tetto 2400ms, fill .5s",
+        "purpose": "Le zampe dei bulldog iscritti diventano verdi da sinistra quando la griglia entra in vista."
+      },
+      {
+        "name": "conteggio",
+        "value": "1400ms, ease-out cubico",
+        "purpose": "I contatori salgono al valore reale."
+      },
+      {
+        "name": "campo-nuovo",
+        "value": "dog-in .45s (opacity + translateY 8px)",
+        "purpose": "Nuovo campo nome bulldog e campo telefono WhatsApp."
+      }
     ],
     "breakpoints": [
-      { "name": "sm", "value": "640px" },
-      { "name": "md", "value": "820px" },
-      { "name": "lg", "value": "1100px" }
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "820px"
+      },
+      {
+        "name": "lg",
+        "value": "1100px"
+      }
     ]
   },
   "components": [
@@ -118,13 +316,41 @@
       "Icone a tratto unico in oro scuro (stroke 1.8–2), mai glifi o emoji."
     ],
     "rules": [
-      { "name": "The Red Is a Date Rule", "body": "Il rosso pieno appare su una superficie solo quando porta una data o un'urgenza (banda della data, errori, asterisco, zampe appena iscritte). Mai come colore di sezione o di pulsante.", "section": "colors" },
-      { "name": "The Gold Speaks Rule", "body": "L'oro non riempie regioni: è lettera, filetto, zampa, pulsante. La regione la riempie il blu notte.", "section": "colors" },
-      { "name": "The Tinted Secondary Rule", "body": "Il testo secondario prende il colore della superficie: Su Notte 2 sul blu, Inchiostro 2/3 sul chiaro. Niente grigi neutri.", "section": "colors" },
-      { "name": "The Uppercase Is Condensed Rule", "body": "Tutto ciò che è maiuscolo e spaziato è Barlow Condensed; Cinzel è maiuscolo per natura e non si spazia oltre .12em.", "section": "typography" },
-      { "name": "The Metallic Lettering Rule", "body": "Il gradiente sul testo è ammesso solo per le lettere d'oro del lockup (nome, ordinale, razza), perché è il materiale della locandina. Nessun altro testo ha gradiente.", "section": "typography" },
-      { "name": "The No Card Rule", "body": "Nessun contenuto vive in un rettangolo bianco ombreggiato: modulo, contatori, successo e voci del programma stanno sul colore della sezione, separati da filetti di 1 px.", "section": "elevation" },
-      { "name": "The Brush Not Box Rule", "body": "Un blocco che deve urlare (data, obiettivo) sta su una pennellata SVG ruotata di 1–1.5°, mai su un rettangolo.", "section": "elevation" }
+      {
+        "name": "The Red Is a Date Rule",
+        "body": "Il rosso pieno appare su una superficie solo quando porta una data o un'urgenza (banda della data, errori, asterisco, zampe appena iscritte). Mai come colore di sezione o di pulsante.",
+        "section": "colors"
+      },
+      {
+        "name": "The Gold Speaks Rule",
+        "body": "L'oro non riempie regioni: è lettera, filetto, zampa, pulsante. La regione la riempie il blu notte.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinted Secondary Rule",
+        "body": "Il testo secondario prende il colore della superficie: Su Notte 2 sul blu, Inchiostro 2/3 sul chiaro. Niente grigi neutri.",
+        "section": "colors"
+      },
+      {
+        "name": "The Uppercase Is Condensed Rule",
+        "body": "Tutto ciò che è maiuscolo e spaziato è Barlow Condensed; Cinzel è maiuscolo per natura e non si spazia oltre .12em.",
+        "section": "typography"
+      },
+      {
+        "name": "The Metallic Lettering Rule",
+        "body": "Il gradiente sul testo è ammesso solo per le lettere d'oro del lockup (nome, ordinale, razza), perché è il materiale della locandina. Nessun altro testo ha gradiente.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Card Rule",
+        "body": "Nessun contenuto vive in un rettangolo bianco ombreggiato: modulo, contatori, successo e voci del programma stanno sul colore della sezione, separati da filetti di 1 px.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Brush Not Box Rule",
+        "body": "Un blocco che deve urlare (data, obiettivo) sta su una pennellata SVG ruotata di 1–1.5°, mai su un rettangolo.",
+        "section": "elevation"
+      }
     ],
     "dos": [
       "Do mettere ogni azione principale in un solo pulsante oro per sezione, e le secondarie in navy o ghost.",

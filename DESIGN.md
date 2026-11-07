@@ -13,6 +13,7 @@ colors:
   rosso-italia: "#ce1b2b"
   rosso-scuro: "#a3101f"
   verde-tricolore: "#0b8a43"
+  verde-zampa: "#34c26e"
   cielo: "#e3f1fb"
   cielo-profondo: "#c9e3f5"
   carta: "#f7f9fc"
@@ -150,6 +151,7 @@ Una tavolozza da manifesto: pochi colori saturi, ciascuno con un compito preciso
 ### Secondary
 - **Rosso Italia** (`{colors.rosso-italia}`): la banda della data, la sottolineatura a pennello delle frasi a mano, il cuore, l'asterisco dei campi obbligatori, . **Rosso Scuro** per i messaggi d'errore.
 - **Verde Tricolore** (`{colors.verde-tricolore}`): solo nel filetto tricolore e nel pulsante WhatsApp (variante `{colors.whatsapp}`).
+- **Verde Zampa** (`{colors.verde-zampa}`): solo le zampe dei bulldog iscritti nella griglia dell'obiettivo e il suo pallino di legenda; è un verde più chiaro del tricolore perché si legga sul blu notte.
 
 ### Neutral
 - **Cielo** (`{colors.cielo}`) e **Cielo Profondo**: fondo dell'hero (radiale bianco→cielo→cielo profondo), della sezione luogo, dei riquadri di aiuto nel modulo, e dei filetti (1 px) tra le voci.
@@ -240,6 +242,11 @@ Pillole per i pulsanti (999 px), campi con angoli da 8 px e bordo 2 px (`#b9c5e2
 
 ### Counters
 - Cifre nude in Barlow Condensed 800 con la didascalia Label **sotto**; il contatore principale in Oro Chiaro con "/ 1.001" a .42em e una riga d'avanzamento di 4 px (oro per la percentuale, Notte Linea il resto).
+
+### Paw Field (signature)
+- 1.001 `<svg><use href="#paw"/></svg>` in flex-wrap su fondo `rgba(9,21,56,.55)` con bordo Notte Linea; zampa libera `#27397a`, zampa di un bulldog iscritto **Verde Zampa**, zampe da 9 px sul telefono, 13 px dai 640 px, 16 px dai 1100 px, gap 3 px. L'area che risponde a mouse e dito è più larga della zampa (padding 2 px con margine negativo), così la griglia non cambia.
+- Passando il mouse su una zampa verde (o toccandola: si prende la più vicina al tocco) compare un'etichetta chiara con **solo il nome del bulldog**, centrata sopra la zampa e tenuta dentro il riquadro, con una freccina che punta alla zampa. Il nome è testo, mai HTML. Le zampe libere non mostrano niente.
+- Si accende a onda (6 ms per zampa, tetto 2,4 s) quando entra in vista; chi si è appena iscritto vede le sue zampe diventare verdi subito, ingrandite del 35%. Con `prefers-reduced-motion` appare già tutto acceso.
 
 ## Do's and Don'ts
 

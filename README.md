@@ -12,7 +12,7 @@ privacy.html      bozza dell'informativa privacy (i punti gialli vanno completat
 css/style.css     stile
 js/config.js      ← l'unico file da toccare per contatori, limiti e dati evento
 js/api.js         strato dati del modulo: parla con la Edge Function Supabase
-js/main.js        comportamento: contatori, modulo, .ics, condivisione
+js/main.js        comportamento: contatori, griglia di zampe con i nomi, modulo, .ics, condivisione
 supabase/         migrazione SQL e codice della Edge Function (non finiscono online con il sito)
 assets/           locandina originale, ritagli usati nel sito, font self-hosted
 PRODUCT.md        verità di prodotto (brief del committente, vincoli, testi confermati)
@@ -35,7 +35,13 @@ Il modulo invia i dati alla Edge Function `bulldogfestival-iscrizioni` del proge
 2. salva l'iscrizione con un **numero progressivo** (1, 2, 3…, mai riassegnato) e un codice personale per l'accoglienza;
 3. segnala i **doppioni per e-mail** (stessa e-mail di un'iscrizione già presente → stato `da_verificare`, non conta nei contatori finché non lo confermi) e accetta al massimo 3 invii all'ora per e-mail;
 4. manda la **conferma via Resend** con il testo del committente e restituisce al sito il numero, che compare a schermo;
-5. a ogni visita, la stessa funzione dà al sito i **contatori** (iscrizioni, persone, bulldog) delle iscrizioni confermate.
+5. a ogni visita, la stessa funzione dà al sito i **contatori** (iscrizioni, persone, bulldog) delle iscrizioni confermate e, con `?nomi=1`, i **nomi dei bulldog** iscritti nell'ordine di iscrizione (solo i nomi, mai dati del referente).
+
+### Griglia di zampe e nomi dei bulldog
+
+Sotto i contatori ci sono 1.001 zampe: quelle dei bulldog iscritti sono **verdi**, nell'ordine di iscrizione, e **passandoci sopra con il mouse (o toccandole sul telefono) compare solo il nome del bulldog**. Chi si iscrive vede subito le sue zampe diventare verdi con i nomi che ha scritto. I nomi arrivano dalla stessa funzione dei contatori e contano le stesse iscrizioni (attive e modificate: né doppioni da verificare né annullate). Per chi usa un lettore di schermo c'è un elenco nascosto con gli stessi nomi.
+
+I nomi dei cani sono **pubblici**: il modulo lo dice accanto al campo e l'informativa (`privacy.html`, punto 3) lo descrive. Il nome compare come testo, mai come HTML. Per togliere un nome inadatto dal sito, nell'SQL editor di Supabase: `update bulldogfestival.iscrizioni set nomi_bulldog = array_replace(nomi_bulldog, 'Nome da togliere', 'Bulldog') where 'Nome da togliere' = any(nomi_bulldog);` (la conferma già mandata al partecipante non cambia).
 
 La tabella non è raggiungibile dal browser: nessun ruolo pubblico può leggerla (RLS attiva e nessuna policy), la scrive solo la funzione. Si consulta dal pannello Supabase → Table Editor → schema `bulldogfestival` → `iscrizioni`, che permette anche l'esportazione in CSV. Per correggere o annullare un'iscrizione basta cambiare `stato` (`annullata` la toglie dai contatori; il numero non viene riassegnato).
 

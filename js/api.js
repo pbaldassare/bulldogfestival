@@ -1,5 +1,5 @@
 /* Strato dati del modulo: parla con la Edge Function `bulldogfestival-iscrizioni` di Supabase.
-     GET  → contatori { iscrizioni, persone, bulldog }
+     GET  → contatori { iscrizioni, persone, bulldog } e, con ?nomi=1, { nomi: [...] } (i nomi dei bulldog iscritti)
      POST → registra l'iscrizione; risponde { ok, number, emailSent, duplicateOf }
    Gli errori hanno un `code` (validation, rate_limited, network, server) che main.js trasforma in messaggi. */
 (function () {
@@ -13,10 +13,14 @@
     /** Contatori per la sezione obiettivo. Se il server non risponde si usano i numeri di config.js. */
     async getCounts() {
       try {
-        const res = await fetch(CFG.api, { headers: { Accept: 'application/json' } });
+        const res = await fetch(CFG.api + '?nomi=1', { headers: { Accept: 'application/json' } });
         if (!res.ok) throw new Error('http ' + res.status);
         const c = await res.json();
-        return { iscrizioni: +c.iscrizioni || 0, persone: +c.persone || 0, bulldog: +c.bulldog || 0 };
+        return {
+          iscrizioni: +c.iscrizioni || 0, persone: +c.persone || 0, bulldog: +c.bulldog || 0,
+          // solo i nomi dei bulldog, nell'ordine di iscrizione: servono alla griglia di zampe
+          nomi: Array.isArray(c.nomi) ? c.nomi.map(n => String(n)) : []
+        };
       } catch (e) {
         return Object.assign({}, CFG.counts);
       }

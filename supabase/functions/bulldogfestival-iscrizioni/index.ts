@@ -1,6 +1,6 @@
 // Supabase Edge Function — iscrizioni al 3° Raduno Nazionale Gold Lake Garda Bulldog Francese.
 // Pubblica (verify_jwt = false): la chiama il sito statico.
-//   GET  → contatori { iscrizioni, persone, bulldog }
+//   GET  → contatori { iscrizioni, persone, bulldog }; con ?nomi=1 anche i nomi dei bulldog iscritti { nomi: [...] }
 //   POST → registra l'iscrizione, assegna il numero progressivo e invia la conferma con Resend
 //
 // Secrets (tutti facoltativi: se mancano l'iscrizione si salva comunque e la mail resta "non_configurata"):
@@ -372,12 +372,21 @@ Deno.serve(async (req) => {
   const supabase = admin();
 
   if (req.method === "GET") {
-    const { data, error } = await supabase.rpc("bf_contatori");
-    if (error) {
-      console.error("contatori:", error.code, error.message);
+    // ?nomi=1 aggiunge i nomi dei bulldog iscritti (solo i nomi, nell'ordine di iscrizione) per la griglia di zampe del sito
+    const conNomi = new URL(req.url).searchParams.get("nomi") === "1";
+    const [contatori, nomi] = await Promise.all([
+      supabase.rpc("bf_contatori"),
+      conNomi ? supabase.rpc("bf_nomi_bulldog") : Promise.resolve({ data: null, error: null }),
+    ]);
+    if (contatori.error) {
+      console.error("contatori:", contatori.error.code, contatori.error.message);
       return json(req, 500, { error: "server" });
     }
-    return json(req, 200, data, { "Cache-Control": "public, max-age=30" });
+    if (nomi.error) console.error("nomi:", nomi.error.code, nomi.error.message);
+    const corpo = conNomi
+      ? { ...(contatori.data as Record<string, unknown>), nomi: nomi.error ? [] : (nomi.data ?? []) }
+      : contatori.data;
+    return json(req, 200, corpo, { "Cache-Control": "public, max-age=30" });
   }
 
   if (req.method !== "POST") return json(req, 405, { error: "method" });
