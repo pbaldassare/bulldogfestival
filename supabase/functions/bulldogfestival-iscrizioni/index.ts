@@ -250,7 +250,9 @@ function costruisciEmail(r: Registrazione, d: Dati) {
   return { oggetto, html, text };
 }
 
-async function inviaConferma(r: Registrazione, d: Dati): Promise<EsitoEmail> {
+// reinvio = true per il reinvio manuale: serve una chiave di idempotenza nuova, altrimenti Resend (che ricorda
+// quella dell'invio originale per 24 ore) risponderebbe "già inviata" senza spedire niente.
+async function inviaConferma(r: Registrazione, d: Dati, reinvio = false): Promise<EsitoEmail> {
   const chiave = (Deno.env.get("BULLDOG_RESEND_API_KEY") || Deno.env.get("RESEND_API_KEY") || "").trim();
   const mittente = (Deno.env.get("BULLDOG_RESEND_FROM") || "").trim();
   if (!chiave || !mittente) return { stato: "not_configured" };
@@ -263,7 +265,7 @@ async function inviaConferma(r: Registrazione, d: Dati): Promise<EsitoEmail> {
       headers: {
         Authorization: `Bearer ${chiave}`,
         "Content-Type": "application/json",
-        "Idempotency-Key": `bulldog-iscrizione-${r.id}`,
+        "Idempotency-Key": `bulldog-iscrizione-${r.id}${reinvio ? "-reinvio-" + Date.now() : ""}`,
       },
       body: JSON.stringify({
         from: mittente,
@@ -294,6 +296,60 @@ async function inviaConferma(r: Registrazione, d: Dati): Promise<EsitoEmail> {
   }
 }
 
+// ---------- Reinvio della conferma (solo per chi organizza) ----------
+// POST { "reinvia": <numero iscrizione> } con Authorization: Bearer <segreto nel vault, lo stesso del report>.
+// Rimanda la conferma all'indirizzo che il partecipante ha scritto nel modulo.
+async function reinviaConferma(req: Request, supabase: ReturnType<typeof admin>, numeroRaw: unknown): Promise<Response> {
+  const token = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "").trim();
+  if (!token) return json(req, 401, { error: "unauthorized" });
+  const { data: autorizzato, error: errAuth } = await supabase.rpc("bf_report_autorizzato", { p_token: token });
+  if (errAuth) {
+    console.error("auth:", errAuth.code, errAuth.message);
+    return json(req, 500, { error: "server" });
+  }
+  if (autorizzato !== true) return json(req, 401, { error: "unauthorized" });
+
+  const numero = Number(numeroRaw);
+  if (!Number.isInteger(numero) || numero < 1) return json(req, 400, { error: "numero" });
+  const { data, error } = await supabase.rpc("bf_iscrizione", { p_numero: numero });
+  if (error) {
+    console.error("iscrizione:", error.code, error.message);
+    return json(req, 500, { error: "server" });
+  }
+  if (!data) return json(req, 404, { error: "non_trovata" });
+
+  const i = data as Record<string, unknown>;
+  const reg: Registrazione = {
+    id: String(i.id),
+    numero: Number(i.numero),
+    codice: String(i.codice),
+    doppione_di: i.doppione_di === null ? null : Number(i.doppione_di),
+  };
+  const dati: Dati = {
+    referente: String(i.referente),
+    citta: String(i.citta ?? ""),
+    provincia: String(i.provincia ?? ""),
+    email: String(i.email),
+    accompagnatori: Number(i.accompagnatori),
+    bulldog: (i.bulldog as string[]) ?? [],
+    whatsapp: i.whatsapp as Dati["whatsapp"],
+    telefono: i.telefono === null ? null : String(i.telefono),
+  };
+
+  const esito = await inviaConferma(reg, dati, true);
+  if (esito.stato === "sent") {
+    const { error: errSegna } = await supabase.rpc("bf_segna_email", { p_id: reg.id, p_stato: "inviata" });
+    if (errSegna) console.error("segna_email:", errSegna.message);
+  }
+  return json(req, 200, {
+    ok: true,
+    number: reg.numero,
+    emailSent: esito.stato === "sent",
+    emailStatus: esito.stato,
+    ...(esito.errore ? { emailError: esito.errore } : {}),
+  });
+}
+
 // ---------- Handler ----------
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: corsHeaders(req) });
@@ -318,6 +374,11 @@ Deno.serve(async (req) => {
     body = JSON.parse(raw);
   } catch {
     return json(req, 400, { error: "json" });
+  }
+
+  // reinvio manuale della conferma: richiede il segreto, i partecipanti non passano di qui
+  if (body && typeof body === "object" && "reinvia" in body) {
+    return await reinviaConferma(req, supabase, (body as Record<string, unknown>).reinvia);
   }
 
   const controllo = valida(body);
